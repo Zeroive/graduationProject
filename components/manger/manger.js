@@ -52,9 +52,8 @@ Component({
     },
   
     onSelect(e) {
+      // 更改图书信息
       this.data.options[this.data.options.active].filter((val, index)=>{
-        // val.name==e.detail.name?this.data.bookInfo[this.data.options.active]=index:''; 
-        // console.log(this.data.options.active);
         if(val.name==e.detail.name){
           this.setData({
             ["bookInfo."+this.data.options.active]: index
