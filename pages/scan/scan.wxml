@@ -1,0 +1,41 @@
+<!--pages/scan/scan.wxml-->
+<header>
+    <view slot="content" class="MIcon" style="color: white;">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: white;">扫一扫结果</text>
+</header>
+<view class="container" style="height: {{$state.ui.screenHeight}}px; width: {{$state.ui.screenWidth}}px ; position: absolute;">
+  <!-- 背景颜色 -->
+  <image src="/static/images/scan_bg.jpg" mode="aspectFill" class="scanBackground"></image>
+
+  <view class="bookInfo">
+    <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb" />
+    <view class="bookDetail">
+      <text class="firInfo">{{bookInfo.name}}</text>
+      <text class="secInfo">作者：{{bookInfo.author}}</text>
+      <text class="secInfo">出版社：{{bookInfo.publisher}}</text>
+      <text class="secInfo">价格：￥{{bookInfo.price}}</text>
+    </view>
+  </view>
+  
+  <!-- 书籍信息 -->
+  <view class="manipulatePanel">
+    <!-- 操作面板 -->
+    <van-cell wx:for="{{manipulateChoice}}" wx:key="index" custom-class="MCard" use-label-slot>
+      <view slot="icon" style="margin: auto 20px auto 0;">
+        <view class="iconfont {{item.icon}}" style="color: {{item.iconColor}};"></view>
+      </view>
+      <view slot="title">
+        {{item.title}}
+      </view>
+      <view slot="label">
+        {{item.label}}
+      </view>
+
+    </van-cell>
+  </view>
+
+  <!-- <view class="test">{{bookISBN}}</view>
+  <view class="test"></view> -->
+</view>

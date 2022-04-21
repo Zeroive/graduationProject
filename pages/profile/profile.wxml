@@ -1,0 +1,48 @@
+<!--pages/profile/profile.wxml-->
+<header>
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">个人图书馆</text>
+</header>
+
+<image src="{{avatarUrl}}" class="profileBackground"></image>
+
+<view class="profileContainer">
+  <van-tabs active="{{ active }}" color="orange" bind:change="onChange">
+    <!-- 馆藏 -->
+    <van-tab title="馆藏">内容 1</van-tab>
+    <!-- 在漂 -->
+    <van-tab title="在漂">
+      <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
+        <!-- 卡片信息 -->
+        <view class="CardInfo">
+          <!-- 图片 -->
+          <image src="{{item.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+          <!-- 详情 -->
+          <view class="bookDetail">
+            <text class="firInfo">{{item.name}}</text>
+            <text class="secInfo">{{item.publisher}}</text>
+            <text class="secInfo">￥{{item.price}}</text>
+          </view>
+          <!-- 操作 -->
+          <view class="bookHandler">
+            <view class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
+            <view class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="1">转漂</view>
+          </view>
+        </view>
+        <!-- 下标题 -->
+        <view class="CardFooter">
+          <image src="{{avatarUrl}}" class="footerAvatar"></image>
+          <view class="footerDesc">放漂于{{item.driftTime}}</view>
+          <view class="footerRightDesc">在馆</view>
+        </view>
+      </view>
+
+      <van-overlay show="{{ show }}" wx:if="{{show}}">
+        <manger id="manger" bind:closePopup="onClickHide"></manger>
+      </van-overlay>
+    </van-tab>
+    <van-tab title="停放">内容 3</van-tab>
+  </van-tabs>
+</view>

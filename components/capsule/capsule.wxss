@@ -1,0 +1,28 @@
+/* components/capsule/capsule.wxss */
+.capsule-box{
+  /* position: fixed; */
+  display: inline-flex;
+  margin-left: 10px;
+  background: rgba(0,0,0,.16);
+  color: #fff;
+  border-radius: 25px;
+  /* padding: 4px 4px; */
+  border: 1rpx solid rgba(255,255,255,0.25);
+  z-index: 99;
+}
+
+.capsule-box{
+  padding: 0 0 0 10rpx;
+  font-size: 40rpx;
+}
+.capsule-box .city{
+  border-left: 1px solid rgba(255,255,255,0.15);
+  margin: 0 3px;
+  padding: 0 20rpx 0 20rpx;
+  color: black;
+}
+
+.capsule-box-hover {
+  color: gray;
+  background: none;
+}

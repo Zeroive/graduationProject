@@ -1,0 +1,48 @@
+<!--pages/home/home.wxml-->
+
+<header>
+  <!-- <text slot="content" class="header-title">单词天天斗</text> -->
+  <view slot="content">
+    <capsule/>
+  </view>
+</header>
+
+<view class="backgroundContain">
+  <image mode="widthFix" class="backgroundPicture" src="/static/images/index.png" />
+  <image class="backgroundZhezhao" src="/static/images/zhezhao.png" />
+
+  <view class="mainBar">
+    <view class="mainBarCell" bindtap="scanCodeEvent">
+      <image mode="widthFix" class="mainIcon" src="/static/images/upload.png"/>
+      <text>扫一扫</text>
+    </view>
+    <navigator open-type="navigate" url="/pages/drift/drift">
+      <view class="mainBarCell" bindtap="">
+        <image mode="widthFix" class="mainIcon" src="/static/images/drifting.png"/>
+        <text>捞一捞</text>
+      </view>
+    </navigator>
+    <!-- <view class="mainBarCell">
+      <image mode="widthFix" class="mainIcon" src="/static/owning.png"/>
+      <text>附近搜索</text>
+    </view> -->
+    <navigator open-type="navigate" url="/pages/profile/profile">
+      <view class="mainBarCell" bindtap="">
+        <image mode="widthFix" class="mainIcon" src="/static/images/pickup.png"/>
+        <text>个人书架</text>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<view class="homeContent">
+  <van-cell-group inset>
+    <van-cell title="单元格" value="内容" />
+    <van-cell title="单元格" value="内容" label="描述信息" />
+  </van-cell-group>
+
+  <van-cell title="单元格" custom-class="MVantCell" />
+</view>
+
+<!-- <text bindtap="scanCodeEvent">{{sacnCode}}</text>
+<navigator open-type="navigateBack"><button>back</button></navigator> -->

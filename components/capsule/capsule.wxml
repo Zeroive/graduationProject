@@ -1,0 +1,13 @@
+<!--components/capsule/capsule.wxml-->
+<view class="capsule-box">
+    <view class="location">
+      <van-icon name="location" color="black"/>
+    </view>
+    <view class="city">
+      {{city}}
+    </view>
+</view>
+
+
+
+

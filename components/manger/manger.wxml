@@ -1,0 +1,25 @@
+<!--components/manger/manger.wxml-->
+
+<view class="wrapper">
+  <view class="container">
+    ==={{bookInfo.name}}===
+    
+      <van-cell-group inset>
+        <van-cell title="图书新旧" value="{{options.newold[bookInfo.newold].name}}" is-link bind:click="onChangeActionSheet" data-index="newold" />
+        <van-cell title="图书笔记" value="{{options.note[bookInfo.note].name}}" is-link bind:click="onChangeActionSheet" data-index="note" />
+        <van-cell title="费用设置" value="{{options.charge[bookInfo.charge].name}}" is-link bind:click="onChangeActionSheet" data-index="charge" />
+        <van-cell title="漂流限制" value="{{options.driftTime[bookInfo.driftTime].name}}" is-link bind:click="onChangeActionSheet" data-index="driftTime" />
+      </van-cell-group>
+      
+      <button bindtap="closePopup">close</button>
+
+  </view>
+</view>
+
+<van-action-sheet
+  show="{{ actionSheetShow }}"
+  actions="{{ actions }}"
+  bind:close="onClose"
+  bind:click-overlay="onClose"
+  bind:select="onSelect"
+/>
