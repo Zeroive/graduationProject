@@ -1,3 +1,4 @@
 # 避免提交的文件夹
+.gitignore
 miniprogram_npm
 node_modules
