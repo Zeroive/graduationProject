@@ -2,16 +2,42 @@
 
 .profileBackground {
   position: absolute;
-  top: 0;
+  top: 12.5%;
   left: 0;
   width: 100%;
   z-index: -1;
-  height: 25%;
+  transform: translateY(-50%);
+}
+
+.BGTitle {
+  /* position: absolute; */
+  font-size: 24px;
+  margin: 20rpx auto 0 auto;
+  text-align: center;
+  letter-spacing: 4rpx;
+  font-weight: 600;
+}
+
+.BGDesc {
+  /* position: absolute; */
+  font-size: 16px;
+  text-align: center;
+}
+
+.BGIconContainer {
+  font-size: 24px;
+  margin: 0 auto;
+}
+
+.BGIcon {
+  position: absolute;
+  margin: 0 10px;
 }
 
 .profileContainer {
   position: absolute;
   /* border: black solid 1px; */
+  background-color: white;
   top: 25%;
   width: 100%;
   height: 75%;

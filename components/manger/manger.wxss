@@ -12,3 +12,11 @@
   justify-content: center;
   height: 100%;
 }
+
+.MTitle {
+  margin: 50rpx 0 50rpx 0;
+  text-align: center;
+  font-size: 35rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}

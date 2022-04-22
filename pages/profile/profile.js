@@ -17,7 +17,7 @@ Page({
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
-        driftTime: "2022-04-11 15:10:26",
+        driftStartTime: "2022-04-11 15:10:26",
         newold: 0,
         note: 0,
         charge: 0,
@@ -29,7 +29,11 @@ Page({
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
-        driftTime: "2022-04-11 15:10:26"
+        driftStartTime: "2022-04-11 15:10:26",
+        newold: 0,
+        note: 0,
+        charge: 0,
+        driftTime: 0
       },
       {
         name: "Spring实战-(第4版)3",
@@ -37,10 +41,11 @@ Page({
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
-        driftTime: "2022-04-11 15:10:26"
+        driftStartTime: "2022-04-11 15:10:26"
       },
     ],
-    show: false // 弹窗是否展示
+    show: false, // 弹窗是否展示
+    ManagerorOnemoreDrift: 0
   },
   // 获取头像
   onChooseAvatar(e) {
@@ -58,8 +63,10 @@ Page({
   },
 
   onClickShow(e) {
+    console.log(this);
     this.setData({ 
-      show: true
+      show: true,
+      ManagerorOnemoreDrift: e.target.dataset.flag
     });
     if(e.target.dataset.flag == 0)
       this.selectComponent("#manger").setData({bookInfo: e.target.dataset.data})

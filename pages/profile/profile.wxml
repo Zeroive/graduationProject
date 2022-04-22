@@ -6,7 +6,15 @@
     <text slot="content" class="MTitle" style="color: {{fontColor}};">个人图书馆</text>
 </header>
 
-<image src="{{avatarUrl}}" class="profileBackground"></image>
+<view>
+  <image src="{{avatarUrl}}" class="profileBackground"/>
+  <view class="BGTitle" style="color: {{fontColor}};">共{{driftBooksInfo.length}}本书在馆</view>
+  <view class="BGDesc" style="color: {{fontColor}};">仅提供图书漂流服务</view>
+  <view class="BGIconContainer">
+    <van-icon name="wap-home" class="BGIcon" style="color: {{fontColor}};left: 0;" />
+    <van-icon name="share" class="BGIcon" style="color: {{fontColor}};right: 0;" />
+  </view>
+</view>
 
 <view class="profileContainer">
   <van-tabs active="{{ active }}" color="orange" bind:change="onChange">
@@ -34,13 +42,15 @@
         <!-- 下标题 -->
         <view class="CardFooter">
           <image src="{{avatarUrl}}" class="footerAvatar"></image>
-          <view class="footerDesc">放漂于{{item.driftTime}}</view>
+          <view class="footerDesc">放漂于{{item.driftStartTime}}</view>
           <view class="footerRightDesc">在馆</view>
         </view>
       </view>
 
+      <!-- Popup -->
       <van-overlay show="{{ show }}" wx:if="{{show}}">
-        <manger id="manger" bind:closePopup="onClickHide"></manger>
+        <manger wx:if="{{ManagerorOnemoreDrift==0}}" class="ttt" id="manger" bind:closePopup="onClickHide"></manger>
+        <onemoreDrift wx:else class="ttt" bind:closePopup="onClickHide"></onemoreDrift>
       </van-overlay>
     </van-tab>
     <van-tab title="停放">内容 3</van-tab>

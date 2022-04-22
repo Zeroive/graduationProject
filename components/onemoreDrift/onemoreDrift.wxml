@@ -1,2 +1,8 @@
 <!--components/onemoreDrift/onemoreDrift.wxml-->
-<text>components/onemoreDrift/onemoreDrift.wxml</text>
+<view class="wrapper">
+
+<view class="container">
+
+</view>
+
+</view>
