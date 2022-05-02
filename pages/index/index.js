@@ -3,7 +3,7 @@
 // import { getCurrentPageUrl } from "../../utils/util"
 const app = getApp()
 
-Page({
+App.Page({
   data: {
     motto: 'Hello World',
     userInfo: {},

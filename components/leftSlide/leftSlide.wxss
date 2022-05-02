@@ -1,0 +1,47 @@
+/* components/leftSlide/leftSlide.wxss */
+.leftSlideContainer {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thumbContainer {
+  width: 60px;
+  height: 60px;
+}
+
+.descContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.manipulateContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.manipulateItems {
+  margin: 10px 0 0 10px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.manipulateIcon {
+  position: relative;
+  font-size: 20px;
+  margin-right: 10px;
+}

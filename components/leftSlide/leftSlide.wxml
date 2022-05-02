@@ -1,0 +1,16 @@
+<!--components/leftSlide/leftSlide.wxml-->
+<!-- 侧边栏 -->
+<van-overlay show="{{ overlayShow }}" bind:click="onClickHide" />
+<view wx:if="{{ leftSlideShow }}" class="leftSlideContainer"
+    style="height:{{$state.ui.screenHeight}}px; width:{{$state.ui.windowWidth*0.7}}px; {{MAnimation}}">
+  <view class="thumbContainer" style="margin-top:{{$state.ui.CustomBarHeight-20}}px;">
+    <image src="{{$state.defaultAvatarUrl}}" style="width: 100%;height: 100%;"></image>
+  </view>
+  <view class="descContainer">图书馆1111</view>
+  <view class="manipulateContainer">
+    <view class="manipulateItems"><van-icon name="add-o" class="manipulateIcon"/>放漂图书</view>
+    <view class="manipulateItems"><van-icon name="info-o" class="manipulateIcon"/>实体店信息</view>
+    <view class="manipulateItems"><van-icon name="setting-o" class="manipulateIcon"/>图书馆书名</view>
+    <view class="manipulateItems"><van-icon name="question-o" class="manipulateIcon"/>其他说明</view>
+  </view>
+</view>

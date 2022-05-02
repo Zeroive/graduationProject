@@ -1,4 +1,6 @@
 /* pages/profile/profile.wxss */
+@import "/static/css/animate.wxss";
+
 
 .profileBackground {
   position: absolute;

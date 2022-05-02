@@ -1,9 +1,14 @@
-// pages/manger/manger.js
-Page({
+// pages/map/map.js
+const citySelector = requirePlugin('citySelector');
+
+const app = getApp()
+
+App.Page({
 
   /**
    * 页面的初始数据
    */
+  useStore: true,
   data: {
 
   },

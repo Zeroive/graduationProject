@@ -6,6 +6,7 @@
     "van-overlay": "@vant/weapp/overlay/index",
     "van-toast": "@vant/weapp/toast/index",
     "manger": "/components/manger/manger",
-    "onemoreDrift": "/components/onemoreDrift/onemoreDrift"
+    "onemoreDrift": "/components/onemoreDrift/onemoreDrift",
+    "leftSlide": "/components/leftSlide/leftSlide"
   }
 }

@@ -1,8 +1,8 @@
 <!--components/onemoreDrift/onemoreDrift.wxml-->
 <view class="wrapper">
 
-<view class="container">
-
-</view>
+  <view class="container">
+    <button bindtap="closePopup" style="margin-top: 50rpx;" type="primary">Finish</button>
+  </view>
 
 </view>

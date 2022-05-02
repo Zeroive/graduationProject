@@ -1,7 +1,7 @@
 <!--pages/scan/scan.wxml-->
 <header>
     <view slot="content" class="MIcon" style="color: white;">
-      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+      <navigator url="/pages/home/home"><van-icon name="arrow-left" /></navigator>
     </view>
     <text slot="content" class="MTitle" style="color: white;">扫一扫结果</text>
 </header>

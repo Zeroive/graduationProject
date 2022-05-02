@@ -1,10 +1,10 @@
 <!--components/capsule/capsule.wxml-->
-<view class="capsule-box">
-    <view class="location">
+<view class="capsule-box" bindtap="toShiftCity">
+    <view class="location" style="margin: auto 0">
       <van-icon name="location" color="black"/>
     </view>
     <view class="city">
-      {{city}}
+      {{$state.map.userMapInfo.name}}
     </view>
 </view>
 

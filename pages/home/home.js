@@ -1,5 +1,5 @@
 // pages/home/home.js
-import { getCurrentPageUrl } from "../../utils/util"
+const citySelector = requirePlugin('citySelector');
 const app = getApp()
 
 App.Page({
@@ -57,14 +57,22 @@ App.Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const selectedCity = citySelector.getCity(); // 选择城市后返回城市信息对象，若未选择返回null
+    // console.log(selectedCity);
+    app.store.setState({
+      ["state.map.userMapInfo"]: selectedCity
+    })
+    // wx.showToast({
+    //   title: app.store.getState().map.userMapInfo.name
+    // })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    // 页面卸载时清空插件数据，防止再次进入页面，getCity返回的是上次的结果
+    citySelector.clearCity();
   },
 
   /**

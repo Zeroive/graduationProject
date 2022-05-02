@@ -1,13 +1,14 @@
 // pages/profile/profile.js
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const app = getApp()
 
-Page({
+App.Page({
 
   /**
    * 页面的初始数据
    */
+  useStore: true,
   data: {
-    avatarUrl: defaultAvatarUrl, //头像Url
+    avatarUrl: '', //头像Url
     fontColor: "black", //字体颜色
     active: 1, //选中标签
     driftBooksInfo: [ //书籍信息
@@ -75,6 +76,17 @@ Page({
 
   onClickHide() {
     this.setData({ show: false });
+  },
+
+  onClickLeftSlideShow(){
+    this.selectComponent("#leftslide").onClickShow()
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '自定义转发标题',
+      path: '/page/profile'
+    }
   },
 
   /**

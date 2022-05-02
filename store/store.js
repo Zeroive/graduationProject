@@ -3,12 +3,27 @@ const Store = require('wxministore');
 let store = new Store({
   state: {
     //以下为自定义的全局状态，用法和页面中的data: {...} 一致。
+    ui:{},//在app.js里面设置
+    map:{
+      setting: {//地图配置
+        key: 'WMWBZ-N2OKX-LZM4N-7D5H6-RV2OV-EUFNG', // 使用在腾讯位置服务申请的key
+        referer: 'wechat_map', // 调用插件的app的名称
+        hotCitys: '' // 用户自定义的的热门城市
+      },
+      userMapInfo:{
+        id: '',
+        name: '泰州',
+        fullname: '',
+        pinyin: [],
+        location: {}
+      }
+    },
     msg: 'Mini Store 是一个基于微信小程序的全局状态库。\n能够在Page，Component，template中任意wxml文件内使用全局状态。\n且全局的状态完全同步。',
     user: {
       name: 'Leisure'
     },
     currentPage: "",
-
+    defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
     counter: 0
   },
   methods: {
