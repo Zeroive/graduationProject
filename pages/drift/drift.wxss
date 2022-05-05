@@ -1,1 +1,37 @@
 /* pages/drift/drift.wxss */
+.container {
+  width: 100%;
+}
+
+.cell_fenge {
+  background-color: black;
+  width: 5px;
+  height: 100%;
+  border-radius: 2px;
+  margin-right: 15px;
+}
+
+.cell_title {
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.MCard {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 180px;
+}
+
+.MCardDesc {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  width: 100px;
+  justify-content: space-around;
+  font-size: 12px;
+}

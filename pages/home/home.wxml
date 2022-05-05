@@ -10,7 +10,7 @@
 <view class="backgroundContain">
   <image mode="widthFix" class="backgroundPicture" src="/static/images/index.png" />
   <image class="backgroundZhezhao" src="/static/images/zhezhao.png" />
-
+  
   <view class="mainBar">
     <view class="mainBarCell" bindtap="scanCodeEvent">
       <image mode="widthFix" class="mainIcon" src="/static/images/upload.png"/>
@@ -26,12 +26,12 @@
       <image mode="widthFix" class="mainIcon" src="/static/owning.png"/>
       <text>附近搜索</text>
     </view> -->
-    <navigator open-type="navigate" url="/pages/profile/profile">
-      <view class="mainBarCell" bindtap="">
+    <view>
+      <view class="mainBarCell" bindtap="getUserProfile">
         <image mode="widthFix" class="mainIcon" src="/static/images/pickup.png"/>
         <text>个人书架</text>
       </view>
-    </navigator>
+    </view>
   </view>
 </view>
 

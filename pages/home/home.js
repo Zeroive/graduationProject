@@ -1,4 +1,6 @@
 // pages/home/home.js
+import utils from "../../utils/util"
+
 const citySelector = requirePlugin('citySelector');
 const app = getApp()
 
@@ -36,6 +38,48 @@ App.Page({
       fail: (res) => {},
       complete: (res) => {},
     })
+  },
+
+  getUserProfile(e){
+    if(app.store.getState().user.state == 0){
+      (async () => {
+        this.gobalLogin();
+        wx.getUserProfile({
+          lang: "zh_CN",
+          desc: "test",
+          success: (res) => {
+            let data = {}
+            data.accessToken = wx.getStorageSync('accessToken')
+            data.encryptedData = res.encryptedData
+            data.iv = res.iv
+            // 获取用户信息
+            wx.request({
+              url: app.store.getState().settings.baseUrl + '/user/getUserProfile',
+              method: "POST",
+              data: data,
+              success:(myres) => {
+                app.store.setState({
+                  user: utils.updateObject(app.store.getState().user, myres.data.userinfo)
+                })
+                wx.setStorage("user", utils.updateObject(app.store.getState().user, myres.data.userinfo))
+                wx.navigateTo({
+                  url: '/pages/profile/profile',
+                })
+              }
+            })
+          },
+          fail: (res) => {
+            console.log(res);
+          },
+          complete: (res) => {},
+        })
+      })();
+    }else{
+      wx.navigateTo({
+        url: '/pages/profile/profile',
+      })
+    }
+    
   },
 
   /**

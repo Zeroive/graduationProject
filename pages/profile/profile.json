@@ -7,6 +7,7 @@
     "van-toast": "@vant/weapp/toast/index",
     "manger": "/components/manger/manger",
     "onemoreDrift": "/components/onemoreDrift/onemoreDrift",
-    "leftSlide": "/components/leftSlide/leftSlide"
+    "leftSlide": "/components/leftSlide/leftSlide",
+    "MCard": "/components/profile/MCard/MCard"
   }
 }

@@ -36,6 +36,7 @@
   margin: 0 10px;
 }
 
+
 .profileContainer {
   position: absolute;
   /* border: black solid 1px; */
@@ -54,99 +55,9 @@
   border-bottom: #c8c9cc solid 1px;
 }
 
-.CardInfo {
-  /* position: absolute; */
-  /* box-sizing: border-box; */
-  display: flex;
-  flex-direction: row;
-  top: 0;
-  height: 80%;
-  width: 100%;
-  /* border: black solid 1px; */
-}
-
-.bookThumb {
-  width: 30%;
-  height: 100%;
-}
-
-.bookDetail {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-around; */
-  width: 60%;
-}
-
-.firInfo {
-  /* 单行溢出 */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-weight: bold;
-}
-
-.secInfo{
-  display: -webkit-box;
-  font-size: 14px;
-  /* 多行溢出 */
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #A8ABB2;
-  margin-top: 5px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.bookHandler {
-  border-left: rgb(190, 188, 188) dotted 2px;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-}
-
 .handlerText {
   color: orange;
   font-size: 14px;
   font-weight: 600;
   margin: auto auto;
-}
-
-.CardFooter {
-  /* position: absolute; */
-  /* box-sizing: border-box; */
-  display: flex;
-  bottom: 0;
-  width: 100%;
-  height: 20%;
-  border-radius: 8px;
-  background-color: rgb(246, 246, 246);
-}
-
-.footerAvatar {
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  border:black solid 1px;
-  margin: auto 0 auto 10px;
-}
-
-.footerDesc {
-  margin: auto 0 auto 10px;
-  color: rgb(186, 186, 186);
-  font-size: 12px;
-  font-weight: 550;
-}
-
-.footerRightDesc {
-  position: absolute;
-  right: 20px;
-  /* top: 50%; */
-  transform: translateY(50%);
-  /* bottom: 12px; */
-  color: rgb(186, 186, 186);
-  font-size: 12px;
-  font-weight: 550;
 }

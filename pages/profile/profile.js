@@ -10,7 +10,7 @@ App.Page({
   data: {
     avatarUrl: '', //头像Url
     fontColor: "black", //字体颜色
-    active: 1, //选中标签
+    active: 0, //选中标签
     driftBooksInfo: [ //书籍信息
         {
         name: "Spring实战-(第4版)1",
@@ -57,10 +57,10 @@ App.Page({
   },
   // 切换标签页
   onChange(event) {
-    wx.showToast({
-      title: `切换到标签 ${event.detail.name}`,
-      icon: 'none',
-    });
+    // wx.showToast({
+    //   title: `切换到标签 ${event.detail.name}`,
+    //   icon: 'none',
+    // });
   },
 
   onClickShow(e) {
@@ -93,7 +93,10 @@ App.Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      // 根据背景图片设置字体颜色
+      fontColor: app.store.getState().user.fontcolor
+    })
   },
 
   /**

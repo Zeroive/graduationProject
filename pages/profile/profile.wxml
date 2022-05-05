@@ -7,12 +7,12 @@
 </header>
 
 <view>
-  <image src="{{$state.defaultAvatarUrl}}" class="profileBackground"/>
+  <image src="{{$state.user.avatarUrl}}" class="profileBackground"/>
   <view class="BGTitle" style="color: {{fontColor}};">共{{driftBooksInfo.length}}本书在馆</view>
   <view class="BGDesc" style="color: {{fontColor}};">仅提供图书漂流服务</view>
   <view class="BGIconContainer">
     <van-icon name="wap-home" class="BGIcon" style="color: {{fontColor}};left: 0;" bindtap="onClickLeftSlideShow" />
-    <button type="default" size="mini" open-type="share" class="BGIcon" style="right: 0; padding: 0;">
+    <button type="default" size="mini" open-type="share" class="BGIcon" style="right: 0; padding: 0;border: 0;" plain>
       <van-icon name="share" style="color: {{fontColor}};font-size: 24px;"/>
     </button>
   </view>
@@ -21,39 +21,23 @@
 <view class="profileContainer">
   <van-tabs active="{{ active }}" color="orange" bind:change="onChange">
     <!-- 馆藏 -->
-    <van-tab title="馆藏">内容 1</van-tab>
+    <van-tab title="馆藏">
+      <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
+        <!-- 卡片信息 -->
+        <MCard bookInfo="{{item}}">
+          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="2">放漂</view>
+        </MCard>
+      </view>
+    </van-tab>
     <!-- 在漂 -->
     <van-tab title="在漂">
       <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
-        <view class="CardInfo">
-          <!-- 图片 -->
-          <image src="{{item.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
-          <!-- 详情 -->
-          <view class="bookDetail">
-            <text class="firInfo">{{item.name}}</text>
-            <text class="secInfo">{{item.publisher}}</text>
-            <text class="secInfo">￥{{item.price}}</text>
-          </view>
-          <!-- 操作 -->
-          <view class="bookHandler">
-            <view class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
-            <view class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="1">转漂</view>
-          </view>
-        </view>
-        <!-- 下标题 -->
-        <view class="CardFooter">
-          <image src="{{$state.defaultAvatarUrl}}" class="footerAvatar"></image>
-          <view class="footerDesc">放漂于{{item.driftStartTime}}</view>
-          <view class="footerRightDesc">在馆</view>
-        </view>
+        <MCard bookInfo="{{item}}">
+          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="0">管理</view>
+          <view slot="hander2" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="1">转漂</view>
+        </MCard>
       </view>
-
-      <!-- Popup -->
-      <van-overlay show="{{ show }}" wx:if="{{show}}">
-        <manger wx:if="{{ManagerorOnemoreDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
-        <onemoreDrift wx:else bind:closePopup="onClickHide"></onemoreDrift>
-      </van-overlay>
     </van-tab>
 
     <!-- 停放 -->
@@ -62,3 +46,9 @@
 </view>
 
 <leftSlide id="leftslide"></leftSlide>
+
+<!-- Popup -->
+<van-overlay show="{{ show }}" wx:if="{{show}}">
+  <manger wx:if="{{ManagerorOnemoreDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
+  <onemoreDrift wx:elif="{{ManagerorOnemoreDrift==1}}" bind:closePopup="onClickHide"></onemoreDrift>
+</van-overlay>

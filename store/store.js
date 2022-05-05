@@ -20,24 +20,42 @@ let store = new Store({
     },
     msg: 'Mini Store 是一个基于微信小程序的全局状态库。\n能够在Page，Component，template中任意wxml文件内使用全局状态。\n且全局的状态完全同步。',
     user: {
-      name: 'Leisure'
+      state: 0, // 0 未登录 1 已登录
+      name: 'Leisure',
+      avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
     },
     currentPage: "",
-    defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
-    counter: 0
+    settings:{
+      baseUrl: "http://127.0.0.1:5000"
+    }
   },
   methods: {
     goAnyWhere(e) {
       wx.navigateTo({
         url: e.currentTarget.dataset.url
       })
+    },
+    gobalLogin(){
+      wx.login({
+        success: (loginRes) => {
+          // wx.login 根据code 换取 openid 和 session_key
+          wx.request({
+            url: getApp().store.getState().settings.baseUrl + '/user/login',
+            method: "POST",
+            data: loginRes,
+            success:(res) => {
+              wx.setStorageSync('accessToken', res.data.accessToken)
+            }
+          })
+        }
+      })
     }
   },
   pageListener: {
     onLoad(options) {
-      store.setState({
-        currentPage: this.route
-      })
+      // store.setState({
+      //   currentPage: this.route
+      // })
       // console.log('我在' + this.route, '参数为', options);
       // console.log(this.currentPage);
     },

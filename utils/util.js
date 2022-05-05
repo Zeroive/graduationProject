@@ -21,7 +21,15 @@ function getCurrentPageUrl(){
   return url
 }
 
+function updateObject(oldValue, newValue){
+  for(let i in newValue){
+    oldValue[i] = newValue[i]
+  }
+  return oldValue
+}
+
 module.exports = {
   formatTime,
-  getCurrentPageUrl
+  getCurrentPageUrl,
+  updateObject
 }

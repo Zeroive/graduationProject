@@ -5,7 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    recommendBooks: [
+      {
+        name: "Spring实战-(第4版)",
+        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        author: "沃尔斯",
+        publisher: "人民邮电出版社",
+        price: "69",
+        address: "成都"
+      },
+      {
+        name: "Spring实战-(第4版)",
+        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        author: "沃尔斯",
+        publisher: "人民邮电出版社",
+        price: "69"
+      },
+      {
+        name: "Spring实战-(第4版)",
+        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        author: "沃尔斯",
+        publisher: "人民邮电出版社",
+        price: "69"
+      }
+    ]
   },
 
   /**

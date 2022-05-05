@@ -1,0 +1,23 @@
+<!--components/profile/MCard/MCard.wxml-->
+<!-- 卡片信息 -->
+<view class="CardInfo">
+  <!-- 图片 -->
+  <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+  <!-- 详情 -->
+  <view class="bookDetail">
+    <text class="firInfo">{{bookInfo.name}}</text>
+    <text class="secInfo">{{bookInfo.publisher}}</text>
+    <text class="secInfo">￥{{bookInfo.price}}</text>
+  </view>
+  <!-- 操作 -->
+  <view class="bookHandler">
+    <slot name="hander1"></slot>
+    <slot name="hander2"></slot>
+  </view>
+</view>
+<!-- 下标题 -->
+<view class="CardFooter">
+  <image src="{{$state.user.avatarUrl}}" class="footerAvatar"></image>
+  <view class="footerDesc">放漂于{{bookInfo.driftStartTime}}</view>
+  <view class="footerRightDesc">在馆</view>
+</view>
