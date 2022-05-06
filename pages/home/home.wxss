@@ -65,3 +65,80 @@
   box-shadow: 0px 0px 8px  #dedfe0;
 }
 
+/* 加载动画 */
+.box{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  top: 50%;
+}
+
+.loader12{
+  position: absolute;
+  top: calc(50% - 75rpx);
+  left: calc(50% - 50rpx);
+  width: 100rpx;
+  height: 150rpx;
+  transform: perspective(1000px) rotateY(-45deg);
+  /*动画 视距 Y轴旋转*/
+  transform-style: preserve-3d; /*保留3D效果*/
+}
+.loader12::before{ 
+  content: ""; 
+  position: absolute;
+  bottom: -70rpx;
+  left: 0;
+  width: 100%;
+  height: 50rpx;
+  background-color: #000;
+  filter: blur(40rpx); 
+  opacity: 0.5; 
+  transform: rotateX(90deg);
+}
+.loader12 .s{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: cc 5s linear infinite;
+  /*动画名称 5S 时间 重复循环*/
+}
+.loader12 .s .s1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx; /*圆角*/
+}
+.loader12 .s .s1:nth-child(1){ /*第一个*/
+  transform: rotateX(0deg);
+  background: rgb(110, 46, 39);
+}
+.loader12 .s .s1:nth-child(2){
+  transform: rotateX(45deg);
+  background: #ccd49d;
+}
+.loader12 .s .s1:nth-child(3){
+  transform: rotateX(-45deg);
+  background: #71bbbb;
+}
+
+.loader12 .s .s1:nth-child(4){
+  transform: rotateX(90deg);
+  background: #afaae9;
+}
+@keyframes cc{ 
+  0%{
+    transform: perspective(1000rpx) rotateX(0deg);
+  }
+  100%{
+    transform: perspective(1000rpx) rotateX(359deg);
+  }
+}

@@ -44,5 +44,18 @@
   <van-cell title="单元格" custom-class="MVantCell" />
 </view>
 
+<van-overlay show="{{ isLoadingShow }}">
+  <view class="box">
+    <view class="loader12 ">
+      <view class="s">
+        <view class="s1"></view>
+        <view class="s1"></view>
+        <view class="s1"></view>
+        <view class="s1"></view>
+      </view>
+    </view>
+  </view>
+</van-overlay>
+
 <!-- <text bindtap="scanCodeEvent">{{sacnCode}}</text>
 <navigator open-type="navigateBack"><button>back</button></navigator> -->

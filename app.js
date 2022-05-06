@@ -14,29 +14,18 @@ App({
 
     // 通过检查用户微信服务器的session是否有效来判断是否登录
     // 如果已经登录，根据本地储存的信息，设置全局变量，渲染页面
-    wx.checkSession({
-      success: (res) => {
-        let oldValue = getApp().store.getState().user
-        let newValue = wx.getStorageSync('user') || {}
-        newValue['state'] = 1
-        getApp().store.setState({
-          user: utils.updateObject(oldValue, newValue)
-        })
-        // console.log(getApp().store.getState().user);
-        // wx.getUserInfo({
-        //   withCredentials: true,
-        //   lang: "zh_CN",
-        //   success: (res) => {
-        //     console.log("success");
-        //     data.token = wx.getStorageSync('accessToken')
-        //     data.encryptedData = res.encryptedData
-        //     data.iv = res.iv
-        //   }
-        // })
-      },
-      fail: ()=>{},
-      complete: ()=>{}
-    });
+    // wx.checkSession({
+    //   success: (res) => {
+    //     let oldValue = getApp().store.getState().user
+    //     let newValue = wx.getStorageSync('user') || {}
+    //     newValue['state'] = 1
+    //     getApp().store.setState({
+    //       user: utils.updateObject(oldValue, newValue)
+    //     })
+    //   },
+    //   fail: ()=>{},
+    //   complete: ()=>{}
+    // });
   },
   initUiGlobal(){
     const { statusBarHeight, screenHeight, screenWidth, windowWidth, windowHeight } = wx.getSystemInfoSync()

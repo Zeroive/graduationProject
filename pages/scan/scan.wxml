@@ -10,7 +10,7 @@
   <image src="/static/images/scan_bg.jpg" mode="aspectFill" class="scanBackground"></image>
 
   <view class="bookInfo">
-    <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb" />
+    <image src="{{bookInfo.headPic}}" mode="aspectFill center" class="bookThumb" />
     <view class="bookDetail">
       <text class="firInfo">{{bookInfo.name}}</text>
       <text class="secInfo">作者：{{bookInfo.author}}</text>

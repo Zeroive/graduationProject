@@ -10,11 +10,15 @@ App.Page({
    * 页面的初始数据
    */
   data: {
-    sacnCode: "扫码"
+    sacnCode: "扫码",
+    isLoadingShow: false
   },
 
   scanCodeEvent(){
-    const that = this
+    // 设置加载 页面
+    this.setData({
+      isLoadingShow: true
+    })
     wx.scanCode({
       scanType: [],
       success: (result) => {
@@ -22,16 +26,30 @@ App.Page({
         // that.setData({
         //   sacnCode: result.result
         // })
-        wx.navigateTo({
-          url: '/pages/scan/scan',
-          events: {
-            // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-            acceptDataFromOpenedPage: function(data) {
-              console.log(data)
-            },
+        
+        // request：根据识别的isbn请求书籍信息
+        wx.request({
+          url: app.store.getState().settings.baseUrl + '/book/findbook',
+          method: 'POST',
+          data: {
+            isbn: result.result
           },
-          success: function(res) {
-            res.eventChannel.emit('acceptDataFromOpenerPage', {data: result.result})
+          success: (bookInfoRes) => {
+            // 成功后跳转页面
+            wx.navigateTo({
+              url: '/pages/scan/scan',
+              // 可以从打开的页面触发
+              events: {
+                // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                // acceptDataFromOpenedPage: function(data) {
+                //   console.log(data)
+                // },
+              },
+              success: function(res) {
+                // 触发打开的页面的方法
+                res.eventChannel.emit('acceptDataFromOpenerPage', bookInfoRes)
+              }
+            })
           }
         })
       },
@@ -41,7 +59,8 @@ App.Page({
   },
 
   getUserProfile(e){
-    if(app.store.getState().user.state == 0){
+    // 判断登录状态
+    if(false && app.store.getState().user.state == 0){
       (async () => {
         this.gobalLogin();
         wx.getUserProfile({
@@ -61,7 +80,8 @@ App.Page({
                 app.store.setState({
                   user: utils.updateObject(app.store.getState().user, myres.data.userinfo)
                 })
-                wx.setStorage("user", utils.updateObject(app.store.getState().user, myres.data.userinfo))
+                console.log(app.store.getState().user);
+                wx.setStorage("user", app.store.getState().user)
                 wx.navigateTo({
                   url: '/pages/profile/profile',
                 })

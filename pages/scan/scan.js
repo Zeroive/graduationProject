@@ -11,7 +11,7 @@ App.Page({
     bookISBN: "9787560013473",
     bookInfo: {
       name: "Spring实战-(第4版)",
-      thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+      headPic: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
       author: "沃尔斯",
       publisher: "人民邮电出版社",
       price: "69"
@@ -41,12 +41,12 @@ App.Page({
     const eventChannel = this.getOpenerEventChannel()
     // eventChannel.emit('acceptDataFromOpenedPage', {data: 'test'});
     // eventChannel.emit('someEvent', {data: 'test'});
-    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据o
     if(eventChannel.on != null){
       eventChannel.on('acceptDataFromOpenerPage', function(data) {
-        console.log(data)
+        console.log(data.data.bookInfo)
         that.setData({
-          bookISBN: data.data
+          bookInfo: data.data.bookInfo
         })
       })
     }
