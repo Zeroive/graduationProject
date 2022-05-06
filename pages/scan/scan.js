@@ -15,23 +15,44 @@ App.Page({
       author: "沃尔斯",
       publisher: "人民邮电出版社",
       price: "69"
-    },
-    manipulateChoice:[
-      {
-        title: "加入馆藏",
-        label: "让自己的图书馆满满当当",
-        icon: "icon-guancangdanganshuliang",
-        iconColor: "#F57646"
-      },
-      {
-        title: "去放漂",
-        label: "一起来建设漂流图书馆叭",
-        icon: "icon-piaoliuping",
-        iconColor: "#1296db"
-      },
-
-    ]
+    }
   },
+
+  onAddBookCollection(){
+    wx.showModal({
+      title: "是否加入馆藏？",
+      success: (res) => {
+        if(res.confirm == true){
+          // 点击确认
+          wx.request({
+            url: app.store.getState().settings.baseUrl + "/userLibrary/addbookcollection",
+            method: "POST",
+            data:{
+              accessToken: wx.getStorageSync("accessToken"),
+              bookId: this.data.bookInfo.bookId
+            },
+            success: (collectionRes)=>{
+              if(collectionRes.statusCode != 200){
+                wx.showToast({
+                  title: '成功加入馆藏！',
+                  icon: 'success'
+                })
+              }else{
+                wx.showToast({
+                  title: '出现错误惹！',
+                  icon: 'error'
+                })
+              }
+            }
+          })
+        }else if(res.cancel == true){
+          // 点击取消
+        }
+      }
+
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -42,14 +63,13 @@ App.Page({
     // eventChannel.emit('acceptDataFromOpenedPage', {data: 'test'});
     // eventChannel.emit('someEvent', {data: 'test'});
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据o
-    if(eventChannel.on != null){
-      eventChannel.on('acceptDataFromOpenerPage', function(data) {
-        console.log(data.data.bookInfo)
-        that.setData({
-          bookInfo: data.data.bookInfo
-        })
+    eventChannel.on('acceptDataFromOpenerPage', function(data) {
+      // console.log(data)
+      that.setData({
+        bookInfo: data
       })
-    }
+    })
+
   },
 
   /**

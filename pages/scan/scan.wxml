@@ -32,7 +32,21 @@
       <view slot="label">
         {{item.label}}
       </view>
+    </van-cell>
+    <van-cell custom-class="MCard" use-label-slot bindtap="onAddBookCollection">
+      <view slot="icon" style="margin: auto 20px auto 0;">
+        <view class="iconfont icon-guancangdanganshuliang" style="color: #F57646;"></view>
+      </view>
+      <view slot="title">加入馆藏</view>
+      <view slot="label">让自己的图书馆满满当当</view>
+    </van-cell>
 
+    <van-cell custom-class="MCard" use-label-slot>
+      <view slot="icon" style="margin: auto 20px auto 0;">
+        <view class="iconfont icon-piaoliuping" style="color: #1296db;"></view>
+      </view>
+      <view slot="title">去放漂</view>
+      <view slot="label">一起来建设漂流图书馆叭</view>
     </van-cell>
   </view>
 

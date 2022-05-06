@@ -14,7 +14,15 @@ App.Page({
     isLoadingShow: false
   },
 
+  // 隐藏加载框
+  onHideLoading(){
+    this.setData({
+      isLoadingShow: false
+    })
+  },
+
   scanCodeEvent(){
+    const that = this
     // 设置加载 页面
     this.setData({
       isLoadingShow: true
@@ -22,7 +30,7 @@ App.Page({
     wx.scanCode({
       scanType: [],
       success: (result) => {
-        console.log(result);
+        // console.log(result);
         // that.setData({
         //   sacnCode: result.result
         // })
@@ -35,32 +43,50 @@ App.Page({
             isbn: result.result
           },
           success: (bookInfoRes) => {
-            // 成功后跳转页面
-            wx.navigateTo({
-              url: '/pages/scan/scan',
-              // 可以从打开的页面触发
-              events: {
-                // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-                // acceptDataFromOpenedPage: function(data) {
-                //   console.log(data)
-                // },
-              },
-              success: function(res) {
-                // 触发打开的页面的方法
-                res.eventChannel.emit('acceptDataFromOpenerPage', bookInfoRes)
-              }
+            bookInfoRes = bookInfoRes.data.bookInfo
+            if(bookInfoRes == null || bookInfoRes == {} ||  bookInfoRes == undefined){
+              wx.showToast({
+                title: '该书正在添加中！',
+                icon: 'error'
+              })
+              this.onHideLoading()
+            }else{
+              // 成功后跳转页面
+              wx.navigateTo({
+                url: '/pages/scan/scan',
+                // 可以从打开的页面触发
+                events: {
+                  // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                  // acceptDataFromOpenedPage: function(data) {
+                  //   console.log(data)
+                  // },
+                },
+                success: function(res) {
+                  // 触发打开的页面的方法
+                  res.eventChannel.emit('acceptDataFromOpenerPage', bookInfoRes)
+                }
+              })
+            }
+          },
+          fail: (res) => {
+            this.onHideLoading()
+            wx.showToast({
+              title: '请检查网络！',
+              icon: 'error'
             })
           }
         })
       },
-      fail: (res) => {},
+      fail: (res) => {
+        this.onHideLoading()
+      },
       complete: (res) => {},
     })
   },
 
   getUserProfile(e){
     // 判断登录状态
-    if(false && app.store.getState().user.state == 0){
+    if(app.store.getState().user.state == 0){
       (async () => {
         this.gobalLogin();
         wx.getUserProfile({
@@ -76,15 +102,22 @@ App.Page({
               url: app.store.getState().settings.baseUrl + '/user/getUserProfile',
               method: "POST",
               data: data,
-              success:(myres) => {
-                app.store.setState({
-                  user: utils.updateObject(app.store.getState().user, myres.data.userinfo)
-                })
-                console.log(app.store.getState().user);
-                wx.setStorage("user", app.store.getState().user)
-                wx.navigateTo({
-                  url: '/pages/profile/profile',
-                })
+              success:(profileRes) => {
+                if(profileRes.statusCode == 200){
+                  app.store.setState({
+                    user: utils.updateObject(app.store.getState().user, profileRes.data.userinfo)
+                  })
+                  // console.log(app.store.getState().user);
+                  wx.setStorageSync("user", app.store.getState().user)
+                  wx.navigateTo({
+                    url: '/pages/profile/profile',
+                  })
+                }else{
+                  wx.showToast({
+                    title: '出现错误惹！',
+                    icon: 'error'
+                  })
+                }
               }
             })
           },
