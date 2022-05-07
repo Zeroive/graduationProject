@@ -41,7 +41,7 @@
       <view slot="label">让自己的图书馆满满当当</view>
     </van-cell>
 
-    <van-cell custom-class="MCard" use-label-slot>
+    <van-cell custom-class="MCard" use-label-slot bindtap="onAddBookDrift">
       <view slot="icon" style="margin: auto 20px auto 0;">
         <view class="iconfont icon-piaoliuping" style="color: #1296db;"></view>
       </view>
@@ -53,3 +53,8 @@
   <!-- <view class="test">{{bookISBN}}</view>
   <view class="test"></view> -->
 </view>
+
+<van-overlay show="{{ bookDrift.popupShow }}" bind:click="onHidePopup">
+  <image src="data:image/png;base64,{{bookDrift.base64img}}" style="width: 100px;height: 100px;"></image>
+  
+</van-overlay>

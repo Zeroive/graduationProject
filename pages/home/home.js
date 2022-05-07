@@ -99,7 +99,7 @@ App.Page({
             data.iv = res.iv
             // 获取用户信息
             wx.request({
-              url: app.store.getState().settings.baseUrl + '/user/getUserProfile',
+              url: app.store.getState().settings.baseUrl + '/user/getuserprofile',
               method: "POST",
               data: data,
               success:(profileRes) => {
@@ -111,6 +111,9 @@ App.Page({
                   wx.setStorageSync("user", app.store.getState().user)
                   wx.navigateTo({
                     url: '/pages/profile/profile',
+                  })
+                  app.store.setState({
+                    ['user.state']: 1
                   })
                 }else{
                   wx.showToast({
@@ -155,10 +158,19 @@ App.Page({
    */
   onShow: function () {
     const selectedCity = citySelector.getCity(); // 选择城市后返回城市信息对象，若未选择返回null
-    // console.log(selectedCity);
-    app.store.setState({
-      ["state.map.userMapInfo"]: selectedCity
-    })
+    if(selectedCity != null){
+      app.store.setState({
+        ["state.map.userMapInfo"]: selectedCity
+      })
+      wx.request({
+        url: app.store.getState().settings.baseUrl + '/user/updateaddress',
+        method: 'POST',
+        data: utils.updateObject(selectedCity, {accessToken: wx.getStorageSync('accessToken')}),
+        success: (res) => {
+          console.log(res);
+        }
+      })
+    }
     // wx.showToast({
     //   title: app.store.getState().map.userMapInfo.name
     // })

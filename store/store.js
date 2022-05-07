@@ -1,3 +1,4 @@
+import utils from "../utils/util"
 const Store = require('wxministore');
 
 let store = new Store({
@@ -21,7 +22,7 @@ let store = new Store({
     msg: 'Mini Store 是一个基于微信小程序的全局状态库。\n能够在Page，Component，template中任意wxml文件内使用全局状态。\n且全局的状态完全同步。',
     user: {
       state: 0, // 0 未登录 1 已登录
-      name: 'Leisure',
+      nickName: 'Leisure',
       avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
     },
     currentPage: "",
@@ -37,14 +38,19 @@ let store = new Store({
     },
     gobalLogin(){
       wx.login({
-        success: (loginRes) => {
+        success: (res) => {
           // wx.login 根据code 换取 openid 和 session_key
           wx.request({
             url: getApp().store.getState().settings.baseUrl + '/user/login',
             method: "POST",
-            data: loginRes,
-            success:(res) => {
-              wx.setStorageSync('accessToken', res.data.accessToken)
+            data: res,
+            success:(loginRes) => {
+              wx.setStorageSync('accessToken', loginRes.data.accessToken)
+              let oldValue = getApp().store.getState().user
+              let newValue = wx.getStorageSync('user') || {}
+              getApp().store.setState({
+                user: utils.updateObject(oldValue, newValue)
+              })
             }
           })
         }

@@ -23,7 +23,7 @@
       </view>
     </navigator>
     <!-- <view class="mainBarCell">
-      <image mode="widthFix" class="mainIcon" src="/static/owning.png"/>
+      <image mode="widthFix" class="mainIcon" src="/static/images/owning.png"/>
       <text>附近搜索</text>
     </view> -->
     <view>

@@ -48,7 +48,7 @@
 <leftSlide id="leftslide"></leftSlide>
 
 <!-- Popup -->
-<van-overlay show="{{ show }}" wx:if="{{show}}">
+<van-overlay show="{{ show }}">
   <manger wx:if="{{ManagerorOnemoreDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
   <onemoreDrift wx:elif="{{ManagerorOnemoreDrift==1}}" bind:closePopup="onClickHide"></onemoreDrift>
 </van-overlay>

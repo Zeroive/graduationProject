@@ -11,10 +11,10 @@ App({
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    console.log(wx.getStorageSync('user'));
+    console.log(wx.getStorageSync('accessToken'));
     // 通过检查用户微信服务器的session是否有效来判断是否登录
     // 如果已经登录，根据本地储存的信息，设置全局变量，渲染页面
-    // 每次都请求一下
     wx.login({
       success: (res) => {
         wx.request({
@@ -25,7 +25,6 @@ App({
             wx.setStorageSync('accessToken', loginRes.data.accessToken)
             let oldValue = getApp().store.getState().user
             let newValue = wx.getStorageSync('user') || {}
-            newValue['state'] = 1
             getApp().store.setState({
               user: utils.updateObject(oldValue, newValue)
             })

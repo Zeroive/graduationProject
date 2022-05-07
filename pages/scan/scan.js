@@ -15,7 +15,19 @@ App.Page({
       author: "沃尔斯",
       publisher: "人民邮电出版社",
       price: "69"
+    },
+    bookDrift:{
+      popupShow: false,
+      base64img: ""
     }
+  },
+
+  onHidePopup(){
+    this.setData({
+      bookDrift:{
+        ['bookDrift.popupShow']: false
+      }
+    })
   },
 
   onAddBookCollection(){
@@ -32,7 +44,7 @@ App.Page({
               bookId: this.data.bookInfo.bookId
             },
             success: (collectionRes)=>{
-              if(collectionRes.statusCode != 200){
+              if(collectionRes.statusCode == 200){
                 wx.showToast({
                   title: '成功加入馆藏！',
                   icon: 'success'
@@ -53,6 +65,41 @@ App.Page({
     })
   },
 
+  onAddBookDrift(){
+    wx.showModal({
+      title: '是否放漂该书！',
+      success: (res)=>{
+        if(res.confirm == true){
+          // 点击确定
+          wx.request({
+            url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
+            method: 'POST',
+            data: {
+              bookId: this.data.bookInfo.bookId,
+              ownerId: app.store.getState().user.userId
+            },
+            success: (driftRes) => {
+              if(driftRes.statusCode == 200){
+                this.setData({
+                  ['bookDrift.popupShow']: true,
+                  ['bookDrift.base64img']: driftRes.data.base64img
+                })
+              }else{
+                wx.showToast({
+                  title: '出现错误惹！',
+                  icon: 'error'
+                })
+              }
+              console.log(driftRes);
+            }
+          })
+        }else{
+          // 点击取消
+        }
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -63,13 +110,14 @@ App.Page({
     // eventChannel.emit('acceptDataFromOpenedPage', {data: 'test'});
     // eventChannel.emit('someEvent', {data: 'test'});
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据o
-    eventChannel.on('acceptDataFromOpenerPage', function(data) {
-      // console.log(data)
-      that.setData({
-        bookInfo: data
+    if(eventChannel){
+      eventChannel.on('acceptDataFromOpenerPage', function(data) {
+        // console.log(data)
+        that.setData({
+          bookInfo: data
+        })
       })
-    })
-
+    }
   },
 
   /**

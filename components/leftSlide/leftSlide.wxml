@@ -8,8 +8,10 @@
   </view>
   <view class="descContainer">图书馆1111</view>
   <view class="manipulateContainer">
-    <view class="manipulateItems"><van-icon name="info-o" class="manipulateIcon"/>实体店信息</view>
-    <view class="manipulateItems"><van-icon name="setting-o" class="manipulateIcon"/>图书馆设置</view>
+    <navigator class="manipulateItems" open-type="navigate" url="/pages/libraryManager/libraryManager">
+      <van-icon name="info-o" class="manipulateIcon"/>实体店信息
+    </navigator>
+    <navigator class="manipulateItems"><van-icon name="setting-o" class="manipulateIcon"/>图书馆设置</navigator>
     <!-- <view class="manipulateItems"><van-icon name="question-o" class="manipulateIcon"/>其他说明</view> -->
   </view>
 </view>
