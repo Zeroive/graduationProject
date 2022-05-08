@@ -13,6 +13,14 @@ App.Component({
     bookInfo:{
       type: Object,
       value: {}
+    },
+    info1:{
+      type: String,
+      value: ""
+    },
+    info2:{
+      type: String,
+      value: ""
     }
   },
 

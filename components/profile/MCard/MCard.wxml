@@ -5,7 +5,7 @@
   <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
   <!-- 详情 -->
   <view class="bookDetail">
-    <text class="firInfo">{{bookInfo.name}}</text>
+    <text class="firInfo">{{bookInfo.bookName}}</text>
     <text class="secInfo">{{bookInfo.publisher}}</text>
     <text class="secInfo">￥{{bookInfo.price}}</text>
   </view>
@@ -18,6 +18,6 @@
 <!-- 下标题 -->
 <view class="CardFooter">
   <image src="{{$state.user.avatarUrl}}" class="footerAvatar"></image>
-  <view class="footerDesc">放漂于{{bookInfo.driftStartTime}}</view>
-  <view class="footerRightDesc">在馆</view>
+  <view class="footerDesc">{{info1}}于{{bookInfo.createTime}}</view>
+  <view class="footerRightDesc">{{info2}}</view>
 </view>

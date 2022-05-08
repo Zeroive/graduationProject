@@ -13,12 +13,12 @@ App.Page({
     active: 0, //选中标签
     driftBooksInfo: [ //书籍信息
         {
-        name: "Spring实战-(第4版)1",
+        bookName: "Spring实战-(第4版)1",
         thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
-        driftStartTime: "2022-04-11 15:10:26",
+        createTime: "2022-04-11 15:10:26",//图书的创建时间， 即馆藏时间
         newold: 0,
         note: 0,
         charge: 0,
@@ -45,6 +45,7 @@ App.Page({
         driftStartTime: "2022-04-11 15:10:26"
       },
     ],
+    collectionBooksInfo:[],
     show: false, // 弹窗是否展示
     ManagerorOnemoreDrift: 0
   },
@@ -64,7 +65,7 @@ App.Page({
   },
 
   onClickShow(e) {
-    console.log(this);
+    // console.log(e.target.dataset.data);
     this.setData({ 
       show: true,
       ManagerorOnemoreDrift: e.target.dataset.flag
@@ -89,6 +90,25 @@ App.Page({
     }
   },
 
+  getBookCollection(){
+    wx.request({
+      url: app.store.getState().settings.baseUrl + "/bookcollection/findallbyuserid",
+      method: "POST",
+      data: {
+        userId: app.store.getState().user.userId
+      },
+      success:(res)=>{
+        this.setData({
+          collectionBooksInfo: res.data.collectionBooksInfo
+        })
+      }
+    })
+  },
+
+  getBookDrift(){
+    
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -97,6 +117,7 @@ App.Page({
       // 根据背景图片设置字体颜色
       fontColor: app.store.getState().user.fontcolor
     })
+    this.getBookCollection()
   },
 
   /**

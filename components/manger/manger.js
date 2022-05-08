@@ -1,5 +1,7 @@
 // components/manger/manger.js
-Component({
+const app = getApp()
+
+App.Component({
   /**
    * 组件的属性列表
    */
@@ -37,10 +39,6 @@ Component({
         { name: '一季度' },
         { name: '一年' }
       ],
-      newoldValue: 0,
-      noteValue: 0,
-      chargeValue: 0,
-      driftTimeValue: 0,
       active: ''
     },
     actionSheetShow: false,
@@ -56,14 +54,12 @@ Component({
     },
   
     onSelect(e) {
+      // e.detail 选项内容 {name: "旧"}
+      // console.log(e.detail);
       // 更改图书信息
-      this.data.options[this.data.options.active].filter((val, index)=>{
-        if(val.name==e.detail.name){
-          this.setData({
-            ["bookInfo."+this.data.options.active]: index
-          })
-        }
-      });
+      this.setData({
+        ["bookInfo."+this.data.options.active]: e.detail.name
+      })
     },
 
     onChangeActionSheet(e){
@@ -79,6 +75,17 @@ Component({
     closePopup(){
       this.triggerEvent('closePopup')
     },
+
+    submitInfo(){
+      wx.request({
+        url: app.store.getState().settings.baseUrl + '/bookcollection/updatebycollectionid',
+        method: 'POST',
+        data: this.data.bookInfo,
+        success: (res) => {
+          this.closePopup()
+        }
+      })
+    }
   },
 
   lifetimes:{

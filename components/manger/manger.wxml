@@ -3,16 +3,16 @@
 <view class="wrapper">
 
   <view class="container">
-    <view class="MTitle">==={{bookInfo.name}}===</view>
+    <view class="MTitle">==={{bookInfo.bookName}}===</view>
 
     <van-cell-group inset>
-      <van-cell title="图书新旧" value="{{options.newold[bookInfo.newold].name}}" is-link bind:click="onChangeActionSheet" data-index="newold" />
-      <van-cell title="图书笔记" value="{{options.note[bookInfo.note].name}}" is-link bind:click="onChangeActionSheet" data-index="note" />
-      <van-cell title="费用设置" value="{{options.charge[bookInfo.charge].name}}" is-link bind:click="onChangeActionSheet" data-index="charge" />
-      <van-cell title="漂流限制" value="{{options.driftTime[bookInfo.driftTime].name}}" is-link bind:click="onChangeActionSheet" data-index="driftTime" />
+      <van-cell title="图书新旧" value="{{bookInfo.newold}}" is-link bind:click="onChangeActionSheet" data-index="newold" />
+      <van-cell title="图书笔记" value="{{bookInfo.note}}" is-link bind:click="onChangeActionSheet" data-index="note" />
+      <van-cell title="费用设置" value="{{bookInfo.charge}}" is-link bind:click="onChangeActionSheet" data-index="charge" />
+      <van-cell title="漂流限制" value="{{bookInfo.driftTime}}" is-link bind:click="onChangeActionSheet" data-index="driftTime" />
     </van-cell-group>
     
-    <button bindtap="closePopup" style="margin-top: 50rpx;" type="primary">Finish</button>
+    <button bindtap="submitInfo" style="margin-top: 50rpx;" type="primary">Finish</button>
 
   </view>
 </view>

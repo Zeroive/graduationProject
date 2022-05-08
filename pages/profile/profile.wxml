@@ -22,10 +22,11 @@
   <van-tabs active="{{ active }}" color="orange" bind:change="onChange">
     <!-- 馆藏 -->
     <van-tab title="馆藏">
-      <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
+      <view wx:for="{{collectionBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
-        <MCard bookInfo="{{item}}">
-          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="2">放漂</view>
+        <MCard bookInfo="{{item}}" info1="馆藏" info2="在馆">
+          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
+          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="2">放漂</view>
         </MCard>
       </view>
     </van-tab>
@@ -33,9 +34,9 @@
     <van-tab title="在漂">
       <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
-        <MCard bookInfo="{{item}}">
-          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="0">管理</view>
-          <view slot="hander2" class="handlerText" bindtap="onClickShow" data-data="{{bookInfo}}" data-flag="1">转漂</view>
+        <MCard bookInfo="{{item}}" info1="放漂" info2="">
+          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
+          <view slot="hander2" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="1">转漂</view>
         </MCard>
       </view>
     </van-tab>
