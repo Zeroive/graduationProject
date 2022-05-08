@@ -37,7 +37,7 @@ App.Page({
         if(res.confirm == true){
           // 点击确认
           wx.request({
-            url: app.store.getState().settings.baseUrl + "/userLibrary/addbookcollection",
+            url: app.store.getState().settings.baseUrl + "/bookcollection/addbookcollection",
             method: "POST",
             data:{
               accessToken: wx.getStorageSync("accessToken"),

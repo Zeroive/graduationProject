@@ -162,6 +162,7 @@ App.Page({
       app.store.setState({
         ["state.map.userMapInfo"]: selectedCity
       })
+      
       wx.request({
         url: app.store.getState().settings.baseUrl + '/user/updateaddress',
         method: 'POST',

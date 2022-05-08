@@ -8,15 +8,54 @@
 
 <view class="container">
   <van-cell-group custom-class="cellgroup">
-    <van-cell title="图书馆名字" value="内容" is-link />
-    <van-cell title="图书馆介绍" value="内容" is-link />
-    <van-cell title="联系方式" value="请输入联系方式" is-link />
-    <van-cell title="定位坐标">
+    <van-cell title="图书馆名字" is-link >
+      <view>
+        <input
+          type="text"
+          placeholder="{{libraryInfo.libraryName==''?'内容':libraryInfo.libraryName}}"
+          bindblur="setValue"
+          data-keyname="libraryName"
+        />
+      </view>
+    </van-cell>
+    <van-cell title="图书馆介绍" is-link >
+      <view>
+        <input
+          type="text"
+          placeholder="{{libraryInfo.introduction==''?'内容':libraryInfo.introduction}}"
+          bindblur="setValue"
+          data-keyname="desc"
+        />
+      </view>
+    </van-cell>
+    <van-cell title="联系方式" is-link >
+      <view>
+        <input
+          type="text"
+          placeholder="{{libraryInfo.phone==''?'请输入联系方式':libraryInfo.phone}}"
+          bindblur="setValue"
+          data-keyname="phone"
+        />
+      </view>
+    </van-cell>
+    <van-cell title="定位坐标" bindtap="onChoseLocation">
+      <view>{{libraryInfo.name==null?"请选择地址":libraryInfo.name}}</view>
       <view slot="right-icon"><van-icon name="location-o" /></view>
     </van-cell>
-    <van-cell title="详细地址" value="内容" is-link />
+    <van-cell title="详细地址" is-link >
+      <view>
+        <input 
+          type="text" 
+          value="{{libraryInfo.detailAddress==''?'内容':libraryInfo.detailAddress}}"
+          bindblur="setValue"
+          data-keyname="detailAddress"
+        />
+      </view>
+    </van-cell>
   </van-cell-group>
-  <button type="default" class="Mbutton">完成</button>
+  <button type="default" class="Mbutton" bindtap="onSaveLibraryInfo">完成</button>
 </view>
+
+
 
 

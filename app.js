@@ -13,6 +13,7 @@ App({
     wx.setStorageSync('logs', logs)
     console.log(wx.getStorageSync('user'));
     console.log(wx.getStorageSync('accessToken'));
+    console.log(wx.getStorageSync('map'));
     // 通过检查用户微信服务器的session是否有效来判断是否登录
     // 如果已经登录，根据本地储存的信息，设置全局变量，渲染页面
     wx.login({

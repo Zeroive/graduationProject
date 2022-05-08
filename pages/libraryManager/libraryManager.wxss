@@ -15,6 +15,10 @@ page {
 
 .cellgroup {
   margin-top: 20px;
+  /* 单行溢出 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .Mbutton {
