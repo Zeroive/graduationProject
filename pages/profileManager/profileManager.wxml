@@ -1,0 +1,49 @@
+<!--pages/profileManager/profileManager.wxml-->
+<header>
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">个人资料</text>
+</header>
+
+<view class="container">
+  <van-cell-group custom-class="cellgroup">
+    <van-cell title="头像">
+      
+    </van-cell>
+
+    <van-cell title="名字" is-link >
+      <view>
+        <input
+          type="text"
+          placeholder="{{userInfo.nickName==''?'内容':userInfo.nickName}}"
+          value="{{userInfo.nickName}}"
+          bindblur="setValue"
+          data-keyname="nickName"
+        />
+      </view>
+    </van-cell>
+
+    <van-cell title="性别" is-link bind:click="onGenderActionShow">
+      <van-action-sheet
+        show="{{ genderactions.show }}"
+        actions="{{ genderactions.actions }}"
+        cancel-text="取消"
+        bind:select="onGenderSelect"
+      />
+      <view>{{userInfo.gender}}</view>
+    </van-cell>
+
+    <van-cell title="地区" is-link>
+      <picker mode="region" bindchange="bindRegionChange" value="{{addressactions.region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{addressactions.region[0]}} {{addressactions.region[1]}} {{addressactions.region[2]}}
+        </view>
+      </picker>
+    </van-cell>
+
+    
+  </van-cell-group>
+  <button type="default" class="Mbutton" bindtap="onSaveLibraryInfo">完成</button>
+</view>
+

@@ -10,7 +10,7 @@
   <image src="/static/images/scan_bg.jpg" mode="aspectFill" class="scanBackground"></image>
 
   <view class="bookInfo">
-    <image src="{{bookInfo.headPic}}" mode="aspectFill center" class="bookThumb" />
+    <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb" />
     <view class="bookDetail">
       <text class="firInfo">{{bookInfo.name}}</text>
       <text class="secInfo">作者：{{bookInfo.author}}</text>
@@ -54,7 +54,12 @@
   <view class="test"></view> -->
 </view>
 
-<van-overlay show="{{ bookDrift.popupShow }}" bind:click="onHidePopup">
-  <image src="data:image/png;base64,{{bookDrift.base64img}}" style="width: 100px;height: 100px;"></image>
-  
+<van-overlay show="{{ bookDrift.popupShow }}">
+  <view class="Popupwrapper">
+    <view class="Popupcontainer">
+      <view><image src="data:image/png;base64,{{bookDrift.base64img}}" style="width: 200px;height: 200px;"></image></view>
+      <view style="margin-top:20px;">快去分享给你的朋友叭！</view>
+      <button type="primary" bindtap="onHidePopup" style="margin-top:20px;">完成</button>
+    </view>
+  </view>
 </van-overlay>

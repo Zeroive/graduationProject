@@ -2,7 +2,10 @@
 <!-- 卡片信息 -->
 <view class="CardInfo">
   <!-- 图片 -->
-  <image src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+  <view style="width: 30%;">
+    <image wx:if="{{bookInfo.isthumbUrlWork}}" src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+    <view wx:else class="noneBookThumb">该书图片在运输过程中丢失啦！</view>
+  </view>
   <!-- 详情 -->
   <view class="bookDetail">
     <text class="firInfo">{{bookInfo.bookName}}</text>

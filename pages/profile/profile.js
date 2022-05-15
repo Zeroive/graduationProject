@@ -14,7 +14,7 @@ App.Page({
     driftBooksInfo: [ //书籍信息
         {
         bookName: "Spring实战-(第4版)1",
-        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        thumbUrl: "http://image12.bookschina.com/2016/20160531/s7146469.jpg",
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
@@ -22,13 +22,14 @@ App.Page({
         newold: 0,
         note: 0,
         charge: 0,
-        driftTime: 0
+        driftTime: 0,
+        isthumbUrlWork: true
       }
     ],
     collectionBooksInfo:[
       {
         bookName: "Spring实战-(第4版)1",
-        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        thumbUrl: "http://api.jisuapi.com/isbn/upload/854/853057.jpg",
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
@@ -36,11 +37,12 @@ App.Page({
         newold: 0,
         note: 0,
         charge: 0,
-        driftTime: 0
+        driftTime: 0,
+        isthumbUrlWork: false
       }
     ],
     show: false, // 弹窗是否展示
-    ManagerorOnemoreDrift: 0
+    ManagerorDrift: 0
   },
   // 获取头像
   onChooseAvatar(e) {
@@ -61,7 +63,7 @@ App.Page({
     // console.log(e.target.dataset.data);
     this.setData({ 
       show: true,
-      ManagerorOnemoreDrift: e.target.dataset.flag
+      ManagerorDrift: e.target.dataset.flag
     });
     if(e.target.dataset.flag == 0)
       this.selectComponent("#manger").setData({bookInfo: e.target.dataset.data})
@@ -92,7 +94,17 @@ App.Page({
       },
       success:(res)=>{
         this.setData({
-          collectionBooksInfo: res.data.collectionBooksInfo
+          collectionBooksInfo: res.data.collectionBooksInfo.map((val => {
+            wx.request({
+              url: val.thumbUrl,
+              method: 'GET',
+              success: (res) => {
+                if(res.statusCode != 0){
+                  val['isthumbUrlWork'] = false
+                }
+              }
+            })
+          }))
         })
       }
     })
@@ -107,8 +119,56 @@ App.Page({
       },
       success:(res)=>{
         this.setData({
-          driftBooksInfo: res.data.driftBooksInfo
+          driftBooksInfo: res.data.driftBooksInfo.map((val => {
+            wx.request({
+              url: val.thumbUrl,
+              method: 'GET',
+              success: (res) => {
+                if(res.statusCode != 0){
+                  val['isthumbUrlWork'] = false
+                }
+              }
+            })
+          }))
         })
+      }
+    })
+  },
+
+  onFirstDrift(e){
+    // 请求后台获得二维码
+    wx.showModal({
+      title: '是否放漂该书！',
+      success: (res)=>{
+        if(res.confirm == true){
+          console.log(e.target.dataset.data.bookId, app.store.getState().user.userId);
+          this.setData({ 
+            show: true,
+            ManagerorDrift: e.target.dataset.flag
+          })
+          this.selectComponent("#firstDrift").setData({bookInfo: e.target.dataset.data})
+          // 点击确定 获取转漂二维码
+          wx.request({
+            url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
+            method: 'POST',
+            data: {
+              bookId: e.target.dataset.data.bookId,
+              ownerId: app.store.getState().user.userId
+            },
+            success: (driftRes) => {
+              if(driftRes.statusCode == 200){
+                this.selectComponent("#firstDrift").setData({base64img: driftRes.data.base64img})
+              }else{
+                wx.showToast({
+                  title: '出现错误惹！',
+                  icon: 'error'
+                })
+              }
+            }
+          })
+        }else{
+          // 点击取消
+        }
       }
     })
   },
@@ -123,6 +183,7 @@ App.Page({
     })
     this.getBookCollection()
     this.getBookDrift()
+
   },
 
   /**

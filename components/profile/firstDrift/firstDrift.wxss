@@ -1,0 +1,14 @@
+/* components/profile/firstDrift/firstDrift.wxss */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.container {
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  background-color: #fff
+}

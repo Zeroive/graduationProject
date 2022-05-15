@@ -1,9 +1,11 @@
-// components/onemoreDrift/onemoreDrift.js
-Component({
+// components/profile/firstDrift/firstDrift.js
+const app = getApp()
+
+App.Component({
   /**
    * 组件的属性列表
    */
-
+  useStore: true,
   options:{
     multipleSlots: true
   },
@@ -25,5 +27,8 @@ Component({
     closePopup(){
       this.triggerEvent('closePopup')
     },
+    onSubmitFirstDrift(){
+      this.closePopup()
+    }
   }
 })

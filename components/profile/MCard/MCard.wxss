@@ -11,9 +11,20 @@
 }
 
 .bookThumb {
-  width: 30%;
+  width: 100%;
   height: 100%;
   margin: 0 5px 0 5px;
+}
+
+.noneBookThumb {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+  color: #c8c9cc;
+  text-align: center;
 }
 
 .bookDetail {

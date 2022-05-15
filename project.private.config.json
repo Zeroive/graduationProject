@@ -7,7 +7,7 @@
       "list": [
         {
           "name": "test",
-          "pathName": "pages/home/home",
+          "pathName": "pages/profileManager/profileManager",
           "query": "",
           "launchMode": "default",
           "scene": null

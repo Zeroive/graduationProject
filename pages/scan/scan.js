@@ -11,18 +11,19 @@ App.Page({
     bookISBN: "9787560013473",
     bookInfo: {
       name: "Spring实战-(第4版)",
-      headPic: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
+      thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
       author: "沃尔斯",
       publisher: "人民邮电出版社",
       price: "69"
     },
     bookDrift:{
-      popupShow: false,
+      popupShow: true,
       base64img: ""
     }
   },
 
   onHidePopup(){
+    console.log(111);
     this.setData({
       bookDrift:{
         ['bookDrift.popupShow']: false
@@ -65,18 +66,20 @@ App.Page({
     })
   },
 
+  // 放漂
   onAddBookDrift(){
     wx.showModal({
       title: '是否放漂该书！',
       success: (res)=>{
         if(res.confirm == true){
-          // 点击确定
+          // 点击确定 获取转漂二维码
           wx.request({
             url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
             method: 'POST',
             data: {
               bookId: this.data.bookInfo.bookId,
-              ownerId: app.store.getState().user.userId
+              ownerId: app.store.getState().user.userId,
+              collectionId: this.data.bookInfo.collectionId?this.data.bookInfo.collectionId:-1
             },
             success: (driftRes) => {
               if(driftRes.statusCode == 200){

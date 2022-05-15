@@ -6,7 +6,7 @@
     <view class="MTitle">==={{bookInfo.bookName}}===</view>
 
     <van-cell-group inset>
-      <van-cell title="图书新旧" value="{{bookInfo.newold}}" is-link bind:click="onChangeActionSheet" data-index="newold" />
+      <van-cell title="新旧程度" value="{{bookInfo.newold}}" is-link bind:click="onChangeActionSheet" data-index="newold" />
       <van-cell title="图书笔记" value="{{bookInfo.note}}" is-link bind:click="onChangeActionSheet" data-index="note" />
       <van-cell title="费用设置" value="{{bookInfo.charge}}" is-link bind:click="onChangeActionSheet" data-index="charge" />
       <van-cell title="漂流限制" value="{{bookInfo.driftTime}}" is-link bind:click="onChangeActionSheet" data-index="driftTime" />

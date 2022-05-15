@@ -26,7 +26,7 @@
         <!-- 卡片信息 -->
         <MCard bookInfo="{{item}}" info1="馆藏" info2="在馆">
           <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
-          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="2">放漂</view>
+          <view slot="hander1" class="handlerText" bindtap="onFirstDrift" data-data="{{item}}" data-flag="2">放漂</view>
         </MCard>
       </view>
     </van-tab>
@@ -50,6 +50,7 @@
 
 <!-- Popup -->
 <van-overlay show="{{ show }}">
-  <manger wx:if="{{ManagerorOnemoreDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
-  <onemoreDrift wx:elif="{{ManagerorOnemoreDrift==1}}" bind:closePopup="onClickHide"></onemoreDrift>
+  <manger wx:if="{{ManagerorDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
+  <onemoreDrift wx:elif="{{ManagerorDrift==1}}" bind:closePopup="onClickHide"></onemoreDrift>
+  <firstDrift wx:elif="{{ManagerorDrift==2}}" id="firstDrift" bind:closePopup="onClickHide"></firstDrift>
 </van-overlay>

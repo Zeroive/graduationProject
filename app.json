@@ -8,7 +8,8 @@
     "pages/profile/profile",
     "pages/search/search",
     "pages/libraryManager/libraryManager",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/profileManager/profileManager"
   ],
   "window": {
     "navigationStyle": "custom",

@@ -1,0 +1,11 @@
+<!--components/profile/firstDrift/firstDrift.wxml-->
+
+
+<view class="wrapper">
+  <view class="container">
+    <view class="container">
+      <image src="data:image/png;base64,{{base64img}}" style="width: 100px;height: 100px;"></image>
+      <button bindtap="onSubmitFirstDrift" style="margin-top: 50rpx;" type="primary">Finish</button>
+    </view>
+  </view>
+</view>

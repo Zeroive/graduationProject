@@ -30,7 +30,9 @@ App.Page({
     wx.scanCode({
       scanType: [],
       success: (result) => {
-        // console.log(result);
+        // result: "9787560013473", scanType: "EAN_13", charSet: "ISO8859-1"
+        // result: "/bookdrift/borrow?driftid=3", scanType: "QR_CODE", charSet: "ISO8859-1"
+        console.log(result);
         // that.setData({
         //   sacnCode: result.result
         // })

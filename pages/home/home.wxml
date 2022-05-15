@@ -37,11 +37,12 @@
 
 <view class="homeContent">
   <van-cell-group inset>
-    <van-cell title="单元格" value="内容" />
-    <van-cell title="单元格" value="内容" label="描述信息" />
+    <van-cell title="馆藏书籍" value="1本" />
+    <van-cell title="在漂书籍" value="1本" />
+    <van-cell title="捞到的书籍" value="2本" label="1本书2天后到期，请注意！" />
   </van-cell-group>
 
-  <van-cell title="单元格" custom-class="MVantCell" />
+  <!-- <van-cell title="单元格" custom-class="MVantCell"/> -->
 </view>
 
 <van-overlay show="{{ isLoadingShow }}">

@@ -6,8 +6,9 @@
     "van-overlay": "@vant/weapp/overlay/index",
     "van-toast": "@vant/weapp/toast/index",
     "manger": "/components/manger/manger",
-    "onemoreDrift": "/components/onemoreDrift/onemoreDrift",
-    "leftSlide": "/components/leftSlide/leftSlide",
-    "MCard": "/components/profile/MCard/MCard"
+    "onemoreDrift": "/components/profile/onemoreDrift/onemoreDrift",
+    "leftSlide": "/components/profile/leftSlide/leftSlide",
+    "MCard": "/components/profile/MCard/MCard",
+    "firstDrift": "/components/profile/firstDrift/firstDrift"
   }
 }
