@@ -17,7 +17,7 @@ App.Page({
       price: "69"
     },
     bookDrift:{
-      popupShow: true,
+      popupShow: false,
       base64img: ""
     }
   },
@@ -41,7 +41,7 @@ App.Page({
             url: app.store.getState().settings.baseUrl + "/bookcollection/addbookcollection",
             method: "POST",
             data:{
-              accessToken: wx.getStorageSync("accessToken"),
+              userId: app.store.getState().user.userId,
               bookId: this.data.bookInfo.bookId
             },
             success: (collectionRes)=>{
@@ -79,7 +79,7 @@ App.Page({
             data: {
               bookId: this.data.bookInfo.bookId,
               ownerId: app.store.getState().user.userId,
-              collectionId: this.data.bookInfo.collectionId?this.data.bookInfo.collectionId:-1
+              // collectionId: this.data.bookInfo.collectionId?this.data.bookInfo.collectionId:-1
             },
             success: (driftRes) => {
               if(driftRes.statusCode == 200){

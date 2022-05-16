@@ -7,7 +7,7 @@
       "list": [
         {
           "name": "test",
-          "pathName": "pages/profileManager/profileManager",
+          "pathName": "pages/bookDetail/bookDetail",
           "query": "",
           "launchMode": "default",
           "scene": null

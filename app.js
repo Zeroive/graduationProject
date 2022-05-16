@@ -12,8 +12,8 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     console.log(wx.getStorageSync('user'));
-    console.log(wx.getStorageSync('accessToken'));
-    console.log(wx.getStorageSync('map'));
+    // console.log(wx.getStorageSync('accessToken'));
+    // console.log(wx.getStorageSync('map'));
     // 通过检查用户微信服务器的session是否有效来判断是否登录
     // 如果已经登录，根据本地储存的信息，设置全局变量，渲染页面
     wx.login({
@@ -42,7 +42,7 @@ App({
     // });
   },
   initUiGlobal(){
-    const { statusBarHeight, screenHeight, screenWidth, windowWidth, windowHeight } = wx.getSystemInfoSync()
+    const { statusBarHeight, screenHeight, screenWidth, windowWidth, windowHeight, } = wx.getSystemInfoSync()
     const capsule = wx.getMenuButtonBoundingClientRect()
     //计算胶囊按钮的高度，作为头部内容区高度
     const CustomBarHeight = capsule.bottom + capsule.top - statusBarHeight

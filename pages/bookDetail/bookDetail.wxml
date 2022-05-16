@@ -1,0 +1,22 @@
+<!--pages/bookDetail/bookDetail.wxml-->
+<header>
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">图书详情</text>
+</header>
+
+<view class="container">
+  <view class="header">
+    <view class="thumbContainer">
+      <image class="thumb" src="{{bookInfo.thumbUrl}}" mode="aspectFill"></image>
+    </view>
+    <view class="bookInfo">
+      <view class="bookName">{{bookInfo.bookName}}</view>
+      <view class="library"><van-icon name="location" style="margin: 0 5px;" />{{bookInfo.libraryName}}</view>
+    </view>
+  </view>
+  <view class="footer"></view>
+</view>
+
+

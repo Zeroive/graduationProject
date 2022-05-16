@@ -36,53 +36,87 @@ App.Page({
         // that.setData({
         //   sacnCode: result.result
         // })
-        
-        // request：根据识别的isbn请求书籍信息
-        wx.request({
-          url: app.store.getState().settings.baseUrl + '/book/findbook',
-          method: 'POST',
-          data: {
-            isbn: result.result
-          },
-          success: (bookInfoRes) => {
-            bookInfoRes = bookInfoRes.data.bookInfo
-            if(bookInfoRes == null || bookInfoRes == {} ||  bookInfoRes == undefined){
+        if(result.scanType == "QR_CODE"){// 转漂二维码
+          wx.request({
+            url: app.store.getState().settings.baseUrl + result.result,
+            method: "POST",
+            data:{
+              userId: app.store.getState().user.userId
+            },
+            success: (res)=>{
+              console.log(res);
+              if(res.statusCode == 200){
+                // 成功后跳转页面
+                wx.navigateTo({
+                  url: '/pages/bookDetail/bookDetail',
+                  // 可以从打开的页面触发
+                  events: {},
+                  success: function(pageres) {
+                    // 触发打开的页面的方法
+                    pageres.eventChannel.emit('acceptDataFromOpenerPage', res.data)
+                  }
+                })
+              }
+              this.onHideLoading()
+            }
+          })
+        }
+        else if(result.scanType == "EAN_13"){// ISBN码
+          // request：根据识别的isbn请求书籍信息
+          wx.request({
+            url: app.store.getState().settings.baseUrl + '/book/findbook',
+            method: 'POST',
+            data: {
+              isbn: result.result
+            },
+            success: (bookInfoRes) => {
+              if(bookInfoRes.statusCode == 200){
+                bookInfoRes = bookInfoRes.data.bookInfo
+                if(bookInfoRes == null || bookInfoRes == {} ||  bookInfoRes == undefined){
+                  wx.showToast({
+                    title: '该书正在添加中！',
+                    icon: 'error'
+                  })
+                }else{
+                  // 成功后跳转页面
+                  wx.navigateTo({
+                    url: '/pages/scan/scan',
+                    // 可以从打开的页面触发
+                    events: {
+                      // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                      // acceptDataFromOpenedPage: function(data) {
+                      //   console.log(data)
+                      // },
+                    },
+                    success: function(res) {
+                      // 触发打开的页面的方法
+                      res.eventChannel.emit('acceptDataFromOpenerPage', bookInfoRes)
+                    }
+                  })
+                }
+              }else{
+                wx.showToast({
+                  title: '网络错误',
+                  icon: 'error'
+                })
+              }
+              this.onHideLoading()
+            },
+            fail: (res) => {
+              this.onHideLoading()
               wx.showToast({
-                title: '该书正在添加中！',
+                title: '请检查网络！',
                 icon: 'error'
               })
-              this.onHideLoading()
-            }else{
-              // 成功后跳转页面
-              wx.navigateTo({
-                url: '/pages/scan/scan',
-                // 可以从打开的页面触发
-                events: {
-                  // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-                  // acceptDataFromOpenedPage: function(data) {
-                  //   console.log(data)
-                  // },
-                },
-                success: function(res) {
-                  // 触发打开的页面的方法
-                  res.eventChannel.emit('acceptDataFromOpenerPage', bookInfoRes)
-                }
-              })
             }
-          },
-          fail: (res) => {
-            this.onHideLoading()
-            wx.showToast({
-              title: '请检查网络！',
-              icon: 'error'
-            })
-          }
-        })
+          })
+        }
+        
       },
       fail: (res) => {
-        this.onHideLoading()
       },
-      complete: (res) => {},
+      complete: (res) => {
+      },
     })
   },
 
