@@ -9,6 +9,7 @@ App.Page({
   /**
    * 页面的初始数据
    */
+  useStore: true,
   data: {
     sacnCode: "扫码",
     isLoadingShow: false
@@ -44,7 +45,7 @@ App.Page({
               userId: app.store.getState().user.userId
             },
             success: (res)=>{
-              console.log(res);
+              // console.log(res);
               if(res.statusCode == 200){
                 // 成功后跳转页面
                 wx.navigateTo({
@@ -57,6 +58,8 @@ App.Page({
                   }
                 })
               }
+            },
+            complete: (res)=>{
               this.onHideLoading()
             }
           })
@@ -120,58 +123,29 @@ App.Page({
     })
   },
 
-  getUserProfile(e){
+  goUserLibrary(){
     // 判断登录状态
     if(app.store.getState().user.state == 0){
-      (async () => {
-        this.gobalLogin();
-        wx.getUserProfile({
-          lang: "zh_CN",
-          desc: "test",
-          success: (res) => {
-            let data = {}
-            data.accessToken = wx.getStorageSync('accessToken')
-            data.encryptedData = res.encryptedData
-            data.iv = res.iv
-            // 获取用户信息
-            wx.request({
-              url: app.store.getState().settings.baseUrl + '/user/getuserprofile',
-              method: "POST",
-              data: data,
-              success:(profileRes) => {
-                if(profileRes.statusCode == 200){
-                  app.store.setState({
-                    user: utils.updateObject(app.store.getState().user, profileRes.data.userinfo)
-                  })
-                  // console.log(app.store.getState().user);
-                  wx.setStorageSync("user", app.store.getState().user)
-                  wx.navigateTo({
-                    url: '/pages/profile/profile',
-                  })
-                  app.store.setState({
-                    ['user.state']: 1
-                  })
-                }else{
-                  wx.showToast({
-                    title: '出现错误惹！',
-                    icon: 'error'
-                  })
-                }
-              }
-            })
-          },
-          fail: (res) => {
-            console.log(res);
-          },
-          complete: (res) => {},
+
+      this.gobalGetUserInfo(()=>{
+        wx.navigateTo({
+          url: '/pages/profile/profile',
+          
         })
-      })();
+      })
+      
     }else{
       wx.navigateTo({
         url: '/pages/profile/profile',
       })
     }
-    
+  },
+
+  getUserProfile(e){
+    // 判断登录状态
+    if(app.store.getState().user.state == 0){
+      this.gobalGetUserInfo()
+    }
   },
 
   /**

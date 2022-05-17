@@ -32,30 +32,39 @@
   flex-direction: column;
   /* justify-content: space-around; */
   width: 60%;
+  margin-left: 10px;
 }
 
 .firInfo {
-  /* 单行溢出 */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.secInfo{
-  display: -webkit-box;
-  font-size: 14px;
   /* 多行溢出 */
   word-break: break-all;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  margin-top: 10px;
+  width: 180px;
+}
+
+.secInfo{
+  font-size: 14px;
+  /* 单行溢出 */
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
   color: #A8ABB2;
   margin-top: 10px;
   font-size: 12px;
   font-weight: 600;
+}
+
+.bookDetail .isDrift{
+  color: #67C23A; 
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
 }
 
 .bookHandler {
@@ -108,4 +117,9 @@
   color: rgb(186, 186, 186);
   font-size: 12px;
   font-weight: 550;
+}
+
+/* 文本提示 */
+.reminder {
+  color:#E6A23C;
 }

@@ -24,8 +24,9 @@ App.Component({
    * 组件的方法列表
    */
   methods: {
-    closePopup(){
+    onSubmitOnemoreDrift(){
       this.triggerEvent('closePopup')
+      this.triggerEvent('updateDrift', {})
     },
   }
 })

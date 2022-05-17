@@ -7,6 +7,8 @@
 </header>
 
 <view class="container">
+  <van-search disabled input-align="center" placeholder="请输入搜索关键词" shape="round" bind:click-input="goSearchPage"  />
+
   <view class="recommend">
     <!-- 头部 -->
     <van-cell title="附近推荐" title-class="cell_title" is-link>
@@ -27,5 +29,35 @@
     </van-grid>
   </view>
 
+  <!-- 历史记录 -->
+  <van-cell title="历史记录" title-class="cell_title">
+    <view slot="icon">
+      <view class="cell_fenge"></view>
+    </view>
+  </van-cell>
+
+  <!-- 历史记录主体 -->
+  <view class="con">
+    <view class="reminderLogin" wx:if="{{$state.user.state == 0}}">
+      请先 <text style="color: #f89898;" bindtap="getUserProfile">登录</text> 使用更多功能！
+    </view>
+    <block wx:else>
+      <block wx:for="{{historyBooks}}" wx:key="list">
+        <view class="flex">
+          <view class="left">
+            <view>{{item.date}}</view>
+            <view class="time">{{item.time}}</view>
+          </view>
+          <view class="right">
+            <!-- 小圆点 -->
+            <view class="circle"></view>
+            <view class="r_box">{{item.content}}</view>
+          </view>
+        </view>
+      </block>
+    </block>
+    
+  </view>
+  
   
 </view>

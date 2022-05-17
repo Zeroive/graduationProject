@@ -1,2 +1,35 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<header>
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">搜索</text>
+</header>
+
+<view>
+  <van-search
+    shape="round"
+    value="{{ value }}"
+    placeholder="请输入搜索关键词"
+    show-action
+    bind:cancel="onCancel"
+    bind:search="onSearch"
+    bind:focus="onShowHistory"
+    bind:blur="onHideHistory"
+  />
+
+  <view  wx:if="{{showHistory}}" class="con">
+    <view class="flex-row j_b">
+      <view class="title">搜索历史</view>
+      <view catchtap="clearHistory" class="clear">清空历史</view>
+    </view>
+  
+    <view class="flex-row list">
+        <block wx:for="{{history_list}}" wx:key="index">
+          <view class="c_item" data-index="{{index}}" catchtap="getSearchOne">{{item}}</view>
+        </block>
+      </view>
+    </view>
+
+
+</view>

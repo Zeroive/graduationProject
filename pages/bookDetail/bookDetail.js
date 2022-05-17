@@ -27,9 +27,10 @@ App.Page({
       ownerId: 1,
       price: "38.9",
       publisher: "外语教学与研究出版社",
-      state: null,
+      state: 0,
       thumbUrl: "http://image31.bookschina.com/2009/20091104/B2898616.jpg",
-      libraryName: "个人图书馆"
+      libraryName: "个人图书馆",
+      borrowerAvatarUrl: "https://thirdwx.qlogo.cn/mmopen/vi_32/8O7wCx1X6Whpk5CWDmyUstgJCicHTOn2MfHy6nvAR6FchO0ib9onlQwibKlTMDzB2icDvdI10bqSiaqRibnqMgFBMziaw/132"
     }
   },
 
@@ -39,13 +40,40 @@ App.Page({
   onLoad(options) {
     const that = this
     const eventChannel = this.getOpenerEventChannel()
-    console.log(eventChannel);
     if(eventChannel.on){
       eventChannel.on('acceptDataFromOpenerPage', function(data) {
         // console.log(data)
         that.setData({
           bookInfo: data
         })
+      })
+    }
+  },
+
+  onClickCancel(){
+    wx.navigateBack()
+  },
+
+  onAcceptDrift(){
+    if(app.store.getState().user.state == 0){
+      this.gobalGetUserInfo()
+    }
+    else{
+      wx.request({
+        url: app.store.getState().settings.baseUrl+'/bookdrift/borrow',
+        method: 'POST',
+        data:{
+          userId: app.store.getState().user.userId,
+          driftId: this.data.bookInfo.driftId
+        },
+        success: (res) => {
+          if(res.statusCode == 200){
+            wx.navigateBack()
+            wx.showToast({
+              title: '成功捞起',
+            })
+          }
+        }
       })
     }
   },

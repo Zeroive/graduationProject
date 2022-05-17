@@ -1,8 +1,10 @@
 <!--components/onemoreDrift/onemoreDrift.wxml-->
 <view class="wrapper">
-
   <view class="container">
-    <button bindtap="closePopup" style="margin-top: 50rpx;" type="primary">Finish</button>
+    <view class="title">{{bookInfo.bookName}}</view>
+    <view>
+      <image src="data:image/png;base64,{{base64img}}" style="width: 200px;height: 200px;"></image>
+    </view>
+    <button bindtap="onSubmitOnemoreDrift" type="primary">完成</button>
   </view>
-
 </view>

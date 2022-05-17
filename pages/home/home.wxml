@@ -27,7 +27,7 @@
       <text>附近搜索</text>
     </view> -->
     <view>
-      <view class="mainBarCell" bindtap="getUserProfile">
+      <view class="mainBarCell" bindtap="goUserLibrary">
         <image mode="widthFix" class="mainIcon" src="/static/images/pickup.png"/>
         <text>个人书架</text>
       </view>
@@ -37,12 +37,22 @@
 
 <view class="homeContent">
   <van-cell-group inset>
-    <van-cell title="馆藏书籍" value="1本" />
-    <van-cell title="在漂书籍" value="1本" />
-    <van-cell title="捞到的书籍" value="2本" label="1本书2天后到期，请注意！" />
+    <van-cell title="馆藏书籍">
+      <view><text class="reminder">{{$state.user.libraryBooks}}</text> 本</view>
+    </van-cell>
+    <van-cell title="在漂书籍">
+      <view><text class="reminder">{{$state.user.driftBooks}}</text> 本</view>
+    </van-cell>
+    <van-cell title="捞到的书籍" use-label-slot>
+      <view><text class="reminder">{{$state.user.pickBooks}}</text> 本</view>
+      <view slot="label"><text class="reminder">{{$state.user.warnBooks}}</text> 本书即将到期，请注意！</view>
+    </van-cell>
   </van-cell-group>
-
   <!-- <van-cell title="单元格" custom-class="MVantCell"/> -->
+</view>
+
+<view wx:if="{{$state.user.state == 0}}" class="reminderLogin">
+  请先 <text style="color: #f89898;" bindtap="getUserProfile">登录</text> 使用更多功能！
 </view>
 
 <van-overlay show="{{ isLoadingShow }}">

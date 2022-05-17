@@ -12,7 +12,7 @@
       <van-cell title="漂流限制" value="{{bookInfo.driftTime}}" is-link bind:click="onChangeActionSheet" data-index="driftTime" />
     </van-cell-group>
     
-    <button bindtap="submitInfo" style="margin-top: 50rpx;" type="primary">Finish</button>
+    <button bindtap="submitInfo" style="margin-top: 50rpx;" type="primary">完成</button>
 
   </view>
 </view>

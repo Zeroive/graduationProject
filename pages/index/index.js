@@ -19,6 +19,24 @@ App.Page({
       url: '../logs/logs'
     })
   },
+  onTest(){
+    const ll = async () => {
+      await new Promise((resolve)=>{
+        setTimeout(()=>{
+          console.log(111);
+          resolve()
+        }, 5000)
+      })
+    }
+    const tt = async ()=>{
+      ll().then(()=>{
+        console.log("000");
+        ll()
+        console.log(222);
+      })
+    } 
+    tt()
+  },
   onLoad() {
     if (wx.getUserProfile) {
       this.setData({

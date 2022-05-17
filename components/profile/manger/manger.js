@@ -82,6 +82,7 @@ App.Component({
         method: 'POST',
         data: this.data.bookInfo,
         success: (res) => {
+          this.triggerEvent('updateCollection', {})
           this.closePopup()
         }
       })

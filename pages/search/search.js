@@ -1,11 +1,75 @@
 // pages/search/search.js
-Page({
+const app = getApp()
+
+App.Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    value: "",
+    history_list:[111],
+    showHistory: false
+  },
 
+  //清空历史
+  clearHistory() {
+    this.setData({
+      history_list:[]
+    })
+    wx.removeStorageSync('search_history')
+  },
+
+  getSearchOne(e){
+    let {index}=e.currentTarget.dataset,{history_list}=this.data;
+    let va=history_list[index]
+    this.setData({
+      value:va
+    })
+    this.data.history_list.forEach((item, index) => {
+      if (item == va) {
+        this.data.history_list.splice(index, 1);
+      }
+    })
+    this.data.history_list.unshift(va);
+    this.setData({
+      history_list:this.data.history_list.slice(0,15)
+    })
+    wx.setStorageSync('search_history', JSON.stringify(this.data.history_list))
+  },
+
+  onSearch(e){
+    let data = e.detail.replace(/(^\s*)|(\s*$)/g, "");//去掉前后的空格
+    if (data.trim() != '') {
+      this.data.history_list.forEach((key, index) => {
+        if (key == data) {
+          this.data.history_list.splice(index, 1);
+        }
+      })
+      this.data.history_list.unshift(data);
+      this.setData({
+        history_list:this.data.history_list.slice(0,15)
+      })
+      wx.setStorageSync('search_history', JSON.stringify(this.data.history_list))
+    }
+  },
+
+  onCancel(){
+    this.setData({
+      value: ""
+    })
+  },
+
+  onShowHistory(){
+    this.setData({
+      showHistory: true
+    })
+  },
+
+  onHideHistory(){
+    this.setData({
+      showHistory: false
+    })
   },
 
   /**
@@ -26,7 +90,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (wx.getStorageSync('search_history') ){
+      this.setData({
+        list:JSON.parse(wx.getStorageSync('search_history') ).slice(0, 15)
+      })
+    }
   },
 
   /**

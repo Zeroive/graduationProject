@@ -44,6 +44,7 @@
   font-size: 18px;
   font-weight: 600;
   height: 50px;
+  color:#303133;
 }
 
 .bookInfo .library {
@@ -56,12 +57,91 @@
   color:#A8ABB2;
 }
 
+.bookInfo .isdrift {
+  margin-top: 10px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color:#67C23A;
+}
 
+.bookInfo .bookDetail {
+  margin-top: 10px;
+}
+
+.bookDetail .firInfo {
+  /* 单行溢出 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bookDetail .secInfo{
+  display: -webkit-box;
+  color: #A8ABB2;
+  font-size: 14px;
+  margin-top: 5px;
+  /* 多行溢出 */
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .footer {
   width: 90%;
   height: 60px;
   margin: 0 auto;
   margin-top: 30px;
-  background-color: black;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer .userInfoCard {
+  display: flex;
+  width: 50%;
+}
+
+.footer .userInfoCard .userAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin: auto 5px;
+}
+
+.footer .userInfoCard .userNameBlock {
+  margin-left: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.userNameBlock .userName {
+  font-size: 21px;
+  /* 单行溢出 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.userNameBlock .userDesc {
+  margin: auto 0;
+  font-size: 13px;
+  color: #909399;
+}
+
+.confirm {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.confirm .Mbutton{
+  border-radius: 20px;
+  width: 150px;
 }

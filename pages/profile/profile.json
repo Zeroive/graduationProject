@@ -5,7 +5,7 @@
     "van-tabs": "@vant/weapp/tabs/index",
     "van-overlay": "@vant/weapp/overlay/index",
     "van-toast": "@vant/weapp/toast/index",
-    "manger": "/components/manger/manger",
+    "manger": "/components/profile/manger/manger",
     "onemoreDrift": "/components/profile/onemoreDrift/onemoreDrift",
     "leftSlide": "/components/profile/leftSlide/leftSlide",
     "MCard": "/components/profile/MCard/MCard",

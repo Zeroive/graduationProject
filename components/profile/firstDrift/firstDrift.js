@@ -28,6 +28,8 @@ App.Component({
       this.triggerEvent('closePopup')
     },
     onSubmitFirstDrift(){
+      this.triggerEvent('updateCollection', {})
+      this.triggerEvent('updateDrift', {})
       this.closePopup()
     }
   }

@@ -6,17 +6,57 @@
     <text slot="content" class="MTitle" style="color: {{fontColor}};">图书详情</text>
 </header>
 
-<view class="container">
-  <view class="header">
-    <view class="thumbContainer">
-      <image class="thumb" src="{{bookInfo.thumbUrl}}" mode="aspectFill"></image>
+<view style="height: {{$state.ui.screenHeight - $state.ui.CustomBarHeight}}px;">
+  <view class="container">
+    <view class="header">
+      <view class="thumbContainer">
+        <image class="thumb" src="{{bookInfo.thumbUrl}}" mode="aspectFill"></image>
+      </view>
+      <view class="bookInfo">
+        <!-- 书名 -->
+        <view class="bookName">{{bookInfo.bookName}}</view>
+        <!-- 所属图书馆 -->
+        <view class="library"><van-icon name="location" style="margin: 0 5px;" />{{bookInfo.libraryName}}</view>
+        <view class="isdrift">
+          <text wx:if="{{bookInfo.state == 0}}">等待转漂</text>
+          <text wx:elif="{{bookInfo.state == 1}}">转漂中...</text>
+          <text wx:else>丢失状态</text>
+        </view>
+        <view class="bookDetail">
+          <text class="firInfo">{{bookInfo.name}}</text>
+          <text class="secInfo">作者：{{bookInfo.author}}</text>
+          <text class="secInfo">出版社：{{bookInfo.publisher}}</text>
+          <text class="secInfo">价格：￥{{bookInfo.price}}</text>
+          <text class="secInfo">新旧程度：<text class="reminder">{{bookInfo.newold}}</text></text>
+          <text class="secInfo">笔记程度：<text class="reminder">{{bookInfo.note}}</text></text>
+          <text class="secInfo">放漂时间：<text class="reminder">{{bookInfo.driftTime}}</text></text>
+        </view>
+      </view>
     </view>
-    <view class="bookInfo">
-      <view class="bookName">{{bookInfo.bookName}}</view>
-      <view class="library"><van-icon name="location" style="margin: 0 5px;" />{{bookInfo.libraryName}}</view>
+
+    <view class="footer">
+      <view class="userInfoCard">
+        <image src="{{bookInfo.lenderAvatarUrl}}" class="userAvatar"></image>
+        <view class="userNameBlock">
+          <view class="userName">{{bookInfo.lenderName}}</view>
+          <view class="userDesc">放漂者</view>
+        </view>
+      </view>
+      <view class="userInfoCard">
+        <image src="{{bookInfo.borrowerAvatarUrl}}" class="userAvatar"></image>
+        <view class="userNameBlock">
+          <view class="userName">{{bookInfo.borrowerName}}</view>
+          <view class="userDesc">持漂者</view>
+        </view>
+      </view>
     </view>
   </view>
-  <view class="footer"></view>
+
+  <view class="confirm">
+    <button class="Mbutton" bindtap="onClickCancel">取消</button>
+    <button type="primary" class="Mbutton" bindtap="onAcceptDrift">确认捞起</button>
+  </view>
 </view>
+
 
 

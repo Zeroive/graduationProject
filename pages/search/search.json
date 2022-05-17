@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "header": "/components/header/header",
+    "van-search": "@vant/weapp/search/index"
+  }
 }

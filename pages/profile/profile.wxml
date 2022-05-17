@@ -24,7 +24,7 @@
     <van-tab title="馆藏">
       <view wx:for="{{collectionBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
-        <MCard bookInfo="{{item}}" info1="馆藏" info2="在馆">
+        <MCard bookInfo="{{item}}" info1="0" info2="在馆" class="MCard">
           <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
           <view slot="hander1" class="handlerText" bindtap="onFirstDrift" data-data="{{item}}" data-flag="2">放漂</view>
         </MCard>
@@ -34,9 +34,9 @@
     <van-tab title="在漂">
       <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
-        <MCard bookInfo="{{item}}" info1="放漂" info2="">
+        <MCard bookInfo="{{item}}" info1="1" info2="" class="MCard">
           <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
-          <view slot="hander2" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="1">转漂</view>
+          <view wx:if="{{item.state == 0}}" slot="hander2" class="handlerText" bindtap="onemoreDrift" data-data="{{item}}" data-flag="1">转漂</view>
         </MCard>
       </view>
     </van-tab>
@@ -50,7 +50,7 @@
 
 <!-- Popup -->
 <van-overlay show="{{ show }}">
-  <manger wx:if="{{ManagerorDrift==0}}" id="manger" bind:closePopup="onClickHide"></manger>
-  <onemoreDrift wx:elif="{{ManagerorDrift==1}}" bind:closePopup="onClickHide"></onemoreDrift>
-  <firstDrift wx:elif="{{ManagerorDrift==2}}" id="firstDrift" bind:closePopup="onClickHide"></firstDrift>
+  <manger wx:if="{{ManagerorDrift==0}}" id="manger" bind:closePopup="onClickHide" bind:updateCollection="getBookCollection"></manger>
+  <onemoreDrift wx:if="{{ManagerorDrift==1}}" id="onemoreDrift" bind:closePopup="onClickHide" bind:updateDrift="getBookDrift"></onemoreDrift>
+  <firstDrift wx:if="{{ManagerorDrift==2}}" id="firstDrift" bind:closePopup="onClickHide"  bind:updateCollection="getBookCollection" bind:updateDrift="getBookDrift"></firstDrift>
 </van-overlay>

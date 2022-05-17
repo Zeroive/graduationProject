@@ -8,7 +8,7 @@
   </view>
   <view class="descContainer">图书馆1111</view>
   <view class="manipulateContainer">
-    <navigator class="manipulateItems">
+    <navigator class="manipulateItems" open-type="navigate" url="/pages/profileManager/profileManager">
       <van-icon name="info-o" class="manipulateIcon"/>个人信息管理
     </navigator>
     <navigator class="manipulateItems" open-type="navigate" url="/pages/libraryManager/libraryManager">

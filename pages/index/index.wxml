@@ -25,3 +25,4 @@
 
 <navigator url="/pages/home/home" open-type="navigate"><button>Home</button></navigator>
 <navigator url="/pages/scan/scan" open-type="navigate"><button>Scan</button></navigator>
+<button bindtap="onTest">test</button>

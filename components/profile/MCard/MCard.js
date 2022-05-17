@@ -15,12 +15,16 @@ App.Component({
       value: {}
     },
     info1:{
-      type: String,
-      value: ""
+      type: Number,
+      value: 0
     },
     info2:{
       type: String,
       value: ""
+    },
+    isthumbUrlWork:{
+      type: Boolean,
+      value: true
     }
   },
 
@@ -35,6 +39,28 @@ App.Component({
    * 组件的方法列表
    */
   methods: {
-
+    onJudgethumbUrl(){
+      try{
+        wx.request({
+          url: this.data.bookInfo.thumbUrl,
+          method: 'GET',
+          success: (res) => {
+            if(res.statusCode != 200){
+              this.setData({
+                ['bookInfo.isthumbUrlWork']: false
+              })
+            }
+          }
+        })
+      }
+      catch(e){
+        console.log(e);
+      }
+    }
+  },
+  pageLifetimes:{
+    show(){
+      this.onJudgethumbUrl()
+    }
   }
 })

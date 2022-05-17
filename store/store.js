@@ -24,6 +24,10 @@ let store = new Store({
       state: 0, // 0 未登录 1 已登录
       nickName: 'Leisure',
       avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+      libraryBooks: 0,
+      driftBooks: 0,
+      pickBooks: 0,
+      warnBooks: 0
     },
     currentPage: "",
     settings:{
@@ -37,6 +41,7 @@ let store = new Store({
       })
     },
     gobalLogin(){
+      console.log('登录');
       wx.login({
         success: (res) => {
           // wx.login 根据code 换取 openid 和 session_key
@@ -55,7 +60,54 @@ let store = new Store({
           })
         }
       })
-    }
+    },
+    gobalGetUserInfo(func=()=>{}){
+      console.log('获取信息');
+      wx.getUserProfile({
+        lang: "zh_CN",
+        desc: "test",
+        success: (res) => {
+          let data = {}
+          data.accessToken = wx.getStorageSync('accessToken')
+          data.encryptedData = res.encryptedData
+          data.iv = res.iv
+          console.log(data);
+          // 获取用户信息
+          wx.request({
+            url: getApp().store.getState().settings.baseUrl + '/user/getuserprofile',
+            method: "POST",
+            data: data,
+            success:(profileRes) => {
+              if(profileRes.statusCode == 200){
+                getApp().store.setState({
+                  user: utils.updateObject(getApp().store.getState().user, profileRes.data.userinfo)
+                })
+                // console.log(getApp().store.getState().user);
+                wx.setStorageSync("user", getApp().store.getState().user)
+                getApp().store.setState({
+                  ['user.state']: 1
+                })
+                func()
+              }else{
+                wx.showToast({
+                  title: '出现错误惹！',
+                  icon: 'error'
+                })
+              }
+            }
+          })
+        },
+        fail: (res) => {
+          console.log(res);
+          wx.showToast({
+            title: '出现错误惹！',
+            icon: 'error'
+          })
+        },
+        complete: (res) => {},
+      })
+      
+    },
   },
   pageListener: {
     onLoad(options) {

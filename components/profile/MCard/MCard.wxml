@@ -3,14 +3,17 @@
 <view class="CardInfo">
   <!-- 图片 -->
   <view style="width: 30%;">
-    <image wx:if="{{bookInfo.isthumbUrlWork}}" src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+    <image wx:if="{{isthumbUrlWork}}" src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
     <view wx:else class="noneBookThumb">该书图片在运输过程中丢失啦！</view>
   </view>
   <!-- 详情 -->
   <view class="bookDetail">
     <text class="firInfo">{{bookInfo.bookName}}</text>
-    <text class="secInfo">{{bookInfo.publisher}}</text>
+    <text class="secInfo">出版社：{{bookInfo.publisher}}</text>
     <text class="secInfo">￥{{bookInfo.price}}</text>
+    <text wx:if="{{info1 == 0}}" class="secInfo">剩余数量：<text class="reminder">{{bookInfo.num}}</text> 本</text>
+    <text wx:if="{{info1 == 1 && bookInfo.state == 1}}" class="isDrift">放漂中...</text>
+    <text wx:elif="{{info1 == 1 && bookInfo.state == 0}}" class="isDrift">等待转漂</text>
   </view>
   <!-- 操作 -->
   <view class="bookHandler">
@@ -21,6 +24,6 @@
 <!-- 下标题 -->
 <view class="CardFooter">
   <image src="{{$state.user.avatarUrl}}" class="footerAvatar"></image>
-  <view class="footerDesc">{{info1}}于{{bookInfo.createTime}}</view>
-  <view class="footerRightDesc">{{info2}}</view>
+  <view class="footerDesc">{{info1==0?"馆藏":"放漂"}}于{{bookInfo.createTime}}</view>
+  <view class="footerRightDesc">{{info1==0?"在馆":""}}</view>
 </view>

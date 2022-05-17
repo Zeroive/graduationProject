@@ -23,6 +23,7 @@ App({
           method: "POST",
           data: res,
           success: (loginRes)=>{
+            console.log(loginRes);
             wx.setStorageSync('accessToken', loginRes.data.accessToken)
             let oldValue = getApp().store.getState().user
             let newValue = wx.getStorageSync('user') || {}
@@ -44,7 +45,11 @@ App({
   initUiGlobal(){
     const { statusBarHeight, screenHeight, screenWidth, windowWidth, windowHeight, } = wx.getSystemInfoSync()
     const capsule = wx.getMenuButtonBoundingClientRect()
-    //计算胶囊按钮的高度，作为头部内容区高度
+    // 导航栏高度
+    const navigationBarHeight = capsule.height + (capsule.top - statusBarHeight) * 2
+    // 总体高度
+    const navHeight = navigationBarHeight + statusBarHeight
+    //计算胶囊按钮的高度，作为头部内容区高度, 总体高度
     const CustomBarHeight = capsule.bottom + capsule.top - statusBarHeight
     store.setState({
       ui: {
@@ -53,7 +58,9 @@ App({
         screenHeight,
         windowWidth,
         windowHeight,
-        CustomBarHeight
+        CustomBarHeight,
+        navigationBarHeight,
+        navHeight
       }
     })
   },

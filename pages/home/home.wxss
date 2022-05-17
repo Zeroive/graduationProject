@@ -142,3 +142,10 @@
     transform: perspective(1000rpx) rotateX(359deg);
   }
 }
+
+.reminderLogin {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%)
+}

@@ -86,6 +86,7 @@ App.Page({
   },
 
   getBookCollection(){
+    console.log("获取馆藏书籍");
     wx.request({
       url: app.store.getState().settings.baseUrl + "/bookcollection/findallbyuserid",
       method: "POST",
@@ -93,24 +94,27 @@ App.Page({
         userId: app.store.getState().user.userId
       },
       success:(res)=>{
-        this.setData({
-          collectionBooksInfo: res.data.collectionBooksInfo.map((val => {
-            wx.request({
-              url: val.thumbUrl,
-              method: 'GET',
-              success: (res) => {
-                if(res.statusCode != 0){
-                  val['isthumbUrlWork'] = false
-                }
+        res.data.collectionBooksInfo.map((val) => {
+          wx.request({
+            url: val.thumbUrl,
+            method: 'GET',
+            success: (res) => {
+              if(res.statusCode == 200){
+                val['isthumbUrlWork'] = true
               }
-            })
-          }))
+            }
+          })
+          return val
+        })
+        this.setData({
+          collectionBooksInfo: res.data.collectionBooksInfo
         })
       }
     })
   },
 
   getBookDrift(){
+    console.log("获取漂流书籍");
     wx.request({
       url: app.store.getState().settings.baseUrl + "/bookdrift/getbyuserid",
       method: "POST",
@@ -118,46 +122,95 @@ App.Page({
         userId: app.store.getState().user.userId
       },
       success:(res)=>{
-        this.setData({
-          driftBooksInfo: res.data.driftBooksInfo.map((val => {
-            wx.request({
-              url: val.thumbUrl,
-              method: 'GET',
-              success: (res) => {
-                if(res.statusCode != 0){
-                  val['isthumbUrlWork'] = false
-                }
+        res.data.driftBooksInfo.map((val) => {
+          wx.request({
+            url: val.thumbUrl,
+            method: 'GET',
+            success: (res) => {
+              if(res.statusCode == 200){
+                val['isthumbUrlWork'] = true
               }
-            })
-          }))
+            }
+          })
+          return val
+        })
+        this.setData({
+          driftBooksInfo: res.data.driftBooksInfo
         })
       }
     })
   },
 
   onFirstDrift(e){
+    if(e.target.dataset.data.num == 0){
+      wx.showToast({
+        title: '数量不足',
+        icon: 'none'
+      })
+    }else{
+      // 请求后台获得二维码
+      wx.showModal({
+        title: '是否放漂该书！',
+        success: (res)=>{
+          if(res.confirm == true){
+            console.log(e.target.dataset.data.bookId, app.store.getState().user.userId);
+            this.setData({
+              show: true,
+              ManagerorDrift: e.target.dataset.flag
+            })
+            this.selectComponent("#firstDrift").setData({bookInfo: e.target.dataset.data})
+            // 点击确定 获取转漂二维码
+            wx.request({
+              url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
+              method: 'POST',
+              data: {
+                bookId: e.target.dataset.data.bookId,
+                ownerId: app.store.getState().user.userId
+              },
+              success: (driftRes) => {
+                console.log(driftRes);
+                if(driftRes.statusCode == 200){
+                  this.selectComponent("#firstDrift").setData({base64img: driftRes.data.base64img})
+                }else{
+                  wx.showToast({
+                    title: '出现错误惹！',
+                    icon: 'error'
+                  })
+                }
+              }
+            })
+          }else{
+            // 点击取消
+          }
+        }
+      })
+    }
+    
+  },
+
+  onemoreDrift(e){
     // 请求后台获得二维码
     wx.showModal({
-      title: '是否放漂该书！',
+      title: '是否转漂该书！',
       success: (res)=>{
         if(res.confirm == true){
-          console.log(e.target.dataset.data.bookId, app.store.getState().user.userId);
-          this.setData({ 
+          console.log(e.target.dataset.data.driftId, app.store.getState().user.userId);
+          this.setData({
             show: true,
             ManagerorDrift: e.target.dataset.flag
           })
-          this.selectComponent("#firstDrift").setData({bookInfo: e.target.dataset.data})
+          this.selectComponent("#onemoreDrift").setData({bookInfo: e.target.dataset.data})
           // 点击确定 获取转漂二维码
           wx.request({
-            url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
+            url: app.store.getState().settings.baseUrl + '/bookdrift/onemoredrift',
             method: 'POST',
             data: {
-              bookId: e.target.dataset.data.bookId,
-              ownerId: app.store.getState().user.userId
+              driftId: e.target.dataset.data.driftId
             },
             success: (driftRes) => {
+              console.log(driftRes);
               if(driftRes.statusCode == 200){
-                this.selectComponent("#firstDrift").setData({base64img: driftRes.data.base64img})
+                this.selectComponent("#onemoreDrift").setData({base64img: driftRes.data.base64img})
               }else{
                 wx.showToast({
                   title: '出现错误惹！',
@@ -183,7 +236,7 @@ App.Page({
     })
     this.getBookCollection()
     this.getBookDrift()
-
+    console.log(this.data);
   },
 
   /**
