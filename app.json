@@ -10,7 +10,8 @@
     "pages/libraryManager/libraryManager",
     "pages/map/map",
     "pages/profileManager/profileManager",
-    "pages/bookDetail/bookDetail"
+    "pages/bookDetail/bookDetail",
+    "pages/recommend/recommend"
   ],
   "window": {
     "navigationStyle": "custom",

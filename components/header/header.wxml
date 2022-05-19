@@ -1,6 +1,6 @@
 <!--components/header/header.wxml-->
 <van-sticky>
-  <view class="header" style="height:{{$state.ui.CustomBarHeight}}px; padding-top:{{$state.ui.statusBarHeight}}px;"> 
+  <view class="header" style="height:{{$state.ui.CustomBarHeight}}px; padding-top:{{$state.ui.statusBarHeight}}px; {{backgroundcolor==''?'':'background-color:'+backgroundcolor+';'}}"> 
     <view class="content">
       <slot name="back"></slot>
       <slot name="content"></slot>

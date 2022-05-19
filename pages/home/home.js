@@ -168,19 +168,21 @@ App.Page({
    */
   onShow: function () {
     const selectedCity = citySelector.getCity(); // 选择城市后返回城市信息对象，若未选择返回null
+    console.log(selectedCity);
     if(selectedCity != null){
       app.store.setState({
-        ["state.map.userMapInfo"]: selectedCity
+        ["user.province"]: selectedCity.name
       })
-      
-      wx.request({
-        url: app.store.getState().settings.baseUrl + '/user/updateaddress',
-        method: 'POST',
-        data: utils.updateObject(selectedCity, {accessToken: wx.getStorageSync('accessToken')}),
-        success: (res) => {
-          console.log(res);
-        }
-      })
+      console.log(app.store.getState());
+      if(app.store.getState().user.state){
+        wx.request({
+          url: app.store.getState().settings.baseUrl + '/user/updateaddress',
+          method: 'POST',
+          data: utils.updateObject(selectedCity, {accessToken: wx.getStorageSync('accessToken')}),
+          success: (res) => {
+          }
+        })
+      }
     }
     // wx.showToast({
     //   title: app.store.getState().map.userMapInfo.name

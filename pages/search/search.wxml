@@ -6,7 +6,7 @@
     <text slot="content" class="MTitle" style="color: {{fontColor}};">搜索</text>
 </header>
 
-<view>
+<view style="margin-bottom: 50px;">
   <van-search
     shape="round"
     value="{{ value }}"
@@ -25,11 +25,23 @@
     </view>
   
     <view class="flex-row list">
-        <block wx:for="{{history_list}}" wx:key="index">
-          <view class="c_item" data-index="{{index}}" catchtap="getSearchOne">{{item}}</view>
-        </block>
+      <block wx:for="{{history_list}}" wx:key="index">
+        <view class="c_item" data-index="{{index}}" catchtap="getSearchOne">{{item}}</view>
+      </block>
+    </view>
+  </view>
+  
+  <block wx:for="{{bookInfos}}" wx:key="index">
+    <view class="news_box">
+      <image src="{{item.thumbUrl}}" class="g_icon" />
+      <view class="news_info">
+        <view class="line_ellipsis">{{item.bookName}}</view>
+        <view class="news_item">
+          <text>出版社：{{item.publisher}}</text>
+        </view>
       </view>
     </view>
-
+  </block>
+  
 
 </view>

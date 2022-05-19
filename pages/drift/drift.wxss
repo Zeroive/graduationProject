@@ -114,6 +114,8 @@
   padding: 16rpx 28rpx 23rpx 29rpx;
   position: relative;
   margin-bottom: 60rpx;
+  display: flex;
+  flex-direction: column;
 }
 
 .r_box::after {
@@ -140,9 +142,20 @@
   display: none;
 }
 
+.reminderRecommend {
+  color: #4D4D4D;
+  margin: 10px auto;
+  text-align: center;
+}
+
 .reminderLogin {
   font-size: 16px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%)
+}
+
+.driftreminder {
+  margin-top: 5px;
+  text-align: right;
 }

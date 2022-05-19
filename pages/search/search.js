@@ -9,7 +9,8 @@ App.Page({
   data: {
     value: "",
     history_list:[111],
-    showHistory: false
+    showHistory: false,
+    bookInfos:[],
   },
 
   //清空历史
@@ -51,6 +52,19 @@ App.Page({
         history_list:this.data.history_list.slice(0,15)
       })
       wx.setStorageSync('search_history', JSON.stringify(this.data.history_list))
+
+      wx.request({
+        url: app.store.getState().settings.baseUrl + '/book/findbookbyname',
+        method: 'POST',
+        data:{
+          bookName: data
+        },
+        success:(res)=>{
+          this.setData({
+            bookInfos: res.data
+          })
+        }
+      })
     }
   },
 

@@ -165,7 +165,8 @@ App.Page({
               method: 'POST',
               data: {
                 bookId: e.target.dataset.data.bookId,
-                ownerId: app.store.getState().user.userId
+                ownerId: app.store.getState().user.userId,
+                state: 1
               },
               success: (driftRes) => {
                 console.log(driftRes);

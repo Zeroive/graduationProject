@@ -21,13 +21,15 @@ let store = new Store({
     },
     msg: 'Mini Store 是一个基于微信小程序的全局状态库。\n能够在Page，Component，template中任意wxml文件内使用全局状态。\n且全局的状态完全同步。',
     user: {
+      userId: -1,
       state: 0, // 0 未登录 1 已登录
       nickName: 'Leisure',
       avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
       libraryBooks: 0,
       driftBooks: 0,
       pickBooks: 0,
-      warnBooks: 0
+      warnBooks: 0,
+      province: "请登录"
     },
     currentPage: "",
     settings:{
@@ -62,6 +64,7 @@ let store = new Store({
       })
     },
     gobalGetUserInfo(func=()=>{}){
+      this.gobalLogin()
       console.log('获取信息');
       wx.getUserProfile({
         lang: "zh_CN",
@@ -100,7 +103,7 @@ let store = new Store({
         fail: (res) => {
           console.log(res);
           wx.showToast({
-            title: '出现错误惹！',
+            title: '请先登录！',
             icon: 'error'
           })
         },

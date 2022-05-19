@@ -10,7 +10,10 @@ App.Component({
   },
   useStore: true,
   properties: {
-
+    backgroundcolor:{
+      type: String,
+      value: ""
+    }
   },
 
   /**

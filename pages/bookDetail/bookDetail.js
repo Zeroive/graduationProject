@@ -72,6 +72,10 @@ App.Page({
             wx.showToast({
               title: '成功捞起',
             })
+          }else{
+            wx.showToast({
+              title: res.data.msg,
+            })
           }
         }
       })

@@ -26,3 +26,9 @@
 <navigator url="/pages/home/home" open-type="navigate"><button>Home</button></navigator>
 <navigator url="/pages/scan/scan" open-type="navigate"><button>Scan</button></navigator>
 <button bindtap="onTest">test</button>
+
+<view style="display: flex;flex-wrap: wrap;justify-content: flex-start;width: 290px;">
+  <view style="width: 100px;">111</view>
+  <view style="width: 100px;"> 111</view>
+  <view style="width: 100px;">111</view>
+</view>

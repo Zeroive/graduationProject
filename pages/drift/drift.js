@@ -9,28 +9,6 @@ App.Page({
   useStore: true,
   data: {
     recommendBooks: [
-      {
-        name: "Spring实战-(第4版)",
-        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
-        author: "沃尔斯",
-        publisher: "人民邮电出版社",
-        price: "69",
-        address: "成都"
-      },
-      {
-        name: "Spring实战-(第4版)",
-        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
-        author: "沃尔斯",
-        publisher: "人民邮电出版社",
-        price: "69"
-      },
-      {
-        name: "Spring实战-(第4版)",
-        thumbUrl: "https://image12.bookschina.com/2016/20160531/s7146469.jpg",
-        author: "沃尔斯",
-        publisher: "人民邮电出版社",
-        price: "69"
-      }
     ],
     historyBooks:[
       {
@@ -66,9 +44,66 @@ App.Page({
     ]
   },
 
+  getRecommendBook(userId=0){
+    wx.request({
+      url: app.store.getState().settings.baseUrl + '/userCF/recommend',
+      method: 'POST',
+      data:{
+        userId: userId==0?app.store.getState().user.userId:userId,
+        num: 3
+      },
+      success: (res)=>{
+        if(res.statusCode == 200){
+          this.setData({
+            recommendBooks: res.data
+          })
+        }
+      }
+    })
+  },
+
+  getDriftRecord(){
+    wx.request({
+      url: app.store.getState().settings.baseUrl + '/bookdrift/record',
+      method: 'POST',
+      data: {
+        userId: 1,
+        cur: this.data.historyBooks.length,
+        want: 10
+      },
+      success: (res)=>{
+        console.log(res);
+        if(res.statusCode == 200){
+          this.setData({
+            historyBooks: res.data
+          })
+        }
+      }
+    })
+  },
+
+  goRecommendPage(){
+    if(app.store.getState().user.state){
+      wx.navigateTo({
+        url: '/pages/recommend/recommend'
+      })
+    }else{
+      wx.showToast({
+        title: '请先登录',
+        icon: 'error'
+      })
+    }
+  },
+
   goSearchPage(){
     wx.navigateTo({
       url: '/pages/search/search',
+    })
+  },
+
+  onlogin(){
+    this.gobalGetUserInfo(()=>{
+      this.getRecommendBook()
     })
   },
 
@@ -76,7 +111,10 @@ App.Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
+    this.getRecommendBook()
+    this.getDriftRecord()
+    
   },
 
   /**

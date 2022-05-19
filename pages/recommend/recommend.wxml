@@ -1,0 +1,22 @@
+<!--pages/recommend/recommend.wxml-->
+<header backgroundcolor="white">
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">猜你想捞</text>
+</header>
+
+<view style="margin-bottom: 30px;">
+  <block wx:for="{{recommendBooks}}" wx:key="index">
+    <view class="news_box">
+      <image src="{{item.thumbUrl}}" class="g_icon" />
+      <view class="news_info">
+        <view class="line_ellipsis">{{item.bookName}}</view>
+        <view class="news_item">
+          <text>出版社：{{item.publisher}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+

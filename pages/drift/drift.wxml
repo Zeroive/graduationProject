@@ -11,22 +11,28 @@
 
   <view class="recommend">
     <!-- 头部 -->
-    <van-cell title="附近推荐" title-class="cell_title" is-link>
+    <van-cell title="猜你想捞" title-class="cell_title" bind:click="goRecommendPage" is-link>
       <view slot="icon">
         <view class="cell_fenge"></view>
       </view>
     </van-cell>
+
     <!-- 展示 -->
-    <van-grid column-num="3" >
+    <van-grid wx:if="{{recommendBooks.length != 0}}" column-num="3" >
       <van-grid-item use-slot wx:for="{{ recommendBooks }}" wx:key="index">
         <view class="MCard">
           <image src="{{ item.thumbUrl }}" style="height: 120px;width: 70px;margin: 5px;" mode="aspectFill"></image>
           <view class="MCardDesc">
-            <text style="text-align: center;">{{item.name}}</text>
+            <text style="text-align: center;">{{item.bookName}}</text>
           </view>
         </view>
       </van-grid-item>
     </van-grid>
+
+    <!-- 没有推荐数据 -->
+    <view class="reminderRecommend" wx:else>
+      暂未获取到任何推荐！
+    </view>
   </view>
 
   <!-- 历史记录 -->
@@ -39,7 +45,7 @@
   <!-- 历史记录主体 -->
   <view class="con">
     <view class="reminderLogin" wx:if="{{$state.user.state == 0}}">
-      请先 <text style="color: #f89898;" bindtap="getUserProfile">登录</text> 使用更多功能！
+      请先 <text style="color: #f89898;" bindtap="onlogin">登录</text> 使用更多功能！
     </view>
     <block wx:else>
       <block wx:for="{{historyBooks}}" wx:key="list">
@@ -51,7 +57,17 @@
           <view class="right">
             <!-- 小圆点 -->
             <view class="circle"></view>
-            <view class="r_box">{{item.content}}</view>
+            <view class="r_box">
+              <view wx:if="{{$state.user.userId == item.lenderId}}" class="reminder">我放漂的：</view>
+              <view wx:elif="{{$state.user.userId == item.borrowerId}}" class="reminder">我捞到的：</view>
+              <view>《{{item.bookName}}》</view>
+              <block wx:if="{{item.state == 0}}">
+                <view class="reminder driftreminder">已放漂, 等待被捞起</view>
+              </block>
+              <block wx:elif="{{item.state == 1}}">
+                <view class="reminder driftreminder">放漂中, 已经被捞起</view>
+              </block>
+            </view>
           </view>
         </view>
       </block>

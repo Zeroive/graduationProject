@@ -29,9 +29,17 @@ App.Component({
    */
   methods: {
     toShiftCity(){
-      wx.navigateTo({
-        url: `plugin://citySelector/index?key=${map.setting.key}&referer=${map.setting.referer}&hotCitys=${map.setting.hotCitys}`,
-      })
+      if(app.store.getState().user.state){
+        wx.navigateTo({
+          url: `plugin://citySelector/index?key=${map.setting.key}&referer=${map.setting.referer}&hotCitys=${map.setting.hotCitys}`,
+        })
+      }else{
+        wx.showToast({
+          title: '请登录',
+          icon: 'error'
+        })
+      }
+      
     },
     
   },

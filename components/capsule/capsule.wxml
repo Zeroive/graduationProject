@@ -4,7 +4,7 @@
       <van-icon name="location" color="black"/>
     </view>
     <view class="city">
-      {{$state.map.userMapInfo.name}}
+      {{$state.user.province}}
     </view>
 </view>
 

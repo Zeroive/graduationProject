@@ -32,75 +32,86 @@ App.Page({
   },
 
   onAddBookCollection(){
-    wx.showModal({
-      title: "是否加入馆藏？",
-      success: (res) => {
-        if(res.confirm == true){
-          // 点击确认
-          wx.request({
-            url: app.store.getState().settings.baseUrl + "/bookcollection/addbookcollection",
-            method: "POST",
-            data:{
-              userId: app.store.getState().user.userId,
-              bookId: this.data.bookInfo.bookId
-            },
-            success: (collectionRes)=>{
-              if(collectionRes.statusCode == 200){
-                wx.showToast({
-                  title: '成功加入馆藏！',
-                  icon: 'success'
-                })
-              }else{
-                wx.showToast({
-                  title: '出现错误惹！',
-                  icon: 'error'
-                })
+    if(app.store.getState().user.state){
+      wx.showModal({
+        title: "是否加入馆藏？",
+        success: (res) => {
+          if(res.confirm == true){
+            // 点击确认
+            wx.request({
+              url: app.store.getState().settings.baseUrl + "/bookcollection/addbookcollection",
+              method: "POST",
+              data:{
+                userId: app.store.getState().user.userId,
+                bookId: this.data.bookInfo.bookId
+              },
+              success: (collectionRes)=>{
+                if(collectionRes.statusCode == 200){
+                  wx.showToast({
+                    title: '成功加入馆藏！',
+                    icon: 'success'
+                  })
+                }else{
+                  wx.showToast({
+                    title: '出现错误惹！',
+                    icon: 'error'
+                  })
+                }
               }
-            }
-          })
-        }else if(res.cancel == true){
-          // 点击取消
+            })
+          }else if(res.cancel == true){
+            // 点击取消
+          }
         }
-      }
-
-    })
+  
+      })
+    }else{
+      this.gobalGetUserInfo()
+    }
+    
   },
 
   // 放漂
   onAddBookDrift(){
-    wx.showModal({
-      title: '是否放漂该书！',
-      success: (res)=>{
-        if(res.confirm == true){
-          // 点击确定 获取转漂二维码
-          wx.request({
-            url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
-            method: 'POST',
-            data: {
-              bookId: this.data.bookInfo.bookId,
-              ownerId: app.store.getState().user.userId,
-              // collectionId: this.data.bookInfo.collectionId?this.data.bookInfo.collectionId:-1
-            },
-            success: (driftRes) => {
-              if(driftRes.statusCode == 200){
-                this.setData({
-                  ['bookDrift.popupShow']: true,
-                  ['bookDrift.base64img']: driftRes.data.base64img
-                })
-              }else{
-                wx.showToast({
-                  title: '出现错误惹！',
-                  icon: 'error'
-                })
+    if(app.store.getState().user.state){
+      wx.showModal({
+        title: '是否放漂该书！',
+        success: (res)=>{
+          if(res.confirm == true){
+            // 点击确定 获取转漂二维码
+            wx.request({
+              url: app.store.getState().settings.baseUrl + '/bookdrift/insert',
+              method: 'POST',
+              data: {
+                bookId: this.data.bookInfo.bookId,
+                ownerId: app.store.getState().user.userId,
+                state: 0
+                // collectionId: this.data.bookInfo.collectionId?this.data.bookInfo.collectionId:-1
+              },
+              success: (driftRes) => {
+                if(driftRes.statusCode == 200){
+                  this.setData({
+                    ['bookDrift.popupShow']: true,
+                    ['bookDrift.base64img']: driftRes.data.base64img
+                  })
+                }else{
+                  wx.showToast({
+                    title: '出现错误惹！',
+                    icon: 'error'
+                  })
+                }
+                console.log(driftRes);
               }
-              console.log(driftRes);
-            }
-          })
-        }else{
-          // 点击取消
+            })
+          }else{
+            // 点击取消
+          }
         }
-      }
-    })
+      })
+    }else{
+      this.gobalGetUserInfo()
+    }
+    
   },
 
 
