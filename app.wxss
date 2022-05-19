@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import "/static/css/iconfont.wxss";
 @import "/static/css/animate.wxss";
+@import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 
 
 page {
@@ -22,7 +23,7 @@ page {
 
 .MIcon {
   padding: 0 0 0 20rpx;
-  font-size: 50rpx;
+  font-size: 45rpx;
 }
 
 .MTitle {

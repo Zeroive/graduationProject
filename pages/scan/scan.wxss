@@ -63,10 +63,11 @@
 }
 
 .secInfo{
-  display: -webkit-box;
+  
   color: #A8ABB2;
   font-size: 14px;
   /* 多行溢出 */
+  display: -webkit-box;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

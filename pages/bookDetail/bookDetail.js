@@ -8,6 +8,7 @@ App.Page({
    * 页面的初始数据
    */
   data: {
+    state: -1,//0是馆藏 1是放漂
     bookInfo:{
       author: "亚历山大 (L.G. Alexander)",
       bookId: 525148,
@@ -34,6 +35,39 @@ App.Page({
     }
   },
 
+  getDetailbyDriftId(){
+    console.log(app.store.getState().settings.baseUrl +' /bookdrift/getdetail?driftid='+this.data.driftId);
+    wx.request({
+      url: app.store.getState().settings.baseUrl +'/bookdrift/getdetail?driftid='+this.data.driftId,
+      method: 'POST',
+      success: (res)=>{
+        console.log(res);
+        if(res.statusCode == 200){
+          this.setData({
+            bookInfo: res.data
+          })
+        }
+      }
+    })
+  },
+
+  getDetailbyCollectionId(){
+    wx.request({
+      url: app.store.getState().settings.baseUrl + '/bookcollection/getdetail',
+      method: 'POST',
+      data: {
+        collectionId: this.data.collectionId
+      },
+      success:(res)=>{
+        if(res.statusCode == 200){
+          this.setData({
+            bookInfo: res.data
+          })
+        }
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -47,7 +81,29 @@ App.Page({
           bookInfo: data
         })
       })
+      eventChannel.on('acceptDataFromProfilePage', function(data) {
+        // console.log(data)
+        that.setData({
+          driftId: data.driftId,
+          collectionId: data.collectionId
+        })
+        if(that.data.driftId != ''){
+          console.log(1);
+          that.getDetailbyDriftId()
+          that.setData({
+            state: 0
+          })
+        }
+        else if(that.data.collectionId != ''){
+          console.log(2);
+          that.getDetailbyCollectionId()
+          that.setData({
+            state: 1
+          })
+        }
+      })
     }
+    
   },
 
   onClickCancel(){

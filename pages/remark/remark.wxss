@@ -1,0 +1,177 @@
+/* pages/remark/remark.wxss */
+.remarkCard {
+  margin: 10px;
+  box-shadow:0 0 10px rgb(153, 153, 153);
+}
+
+.bookThumb {
+  width: 100%;
+  height: 100%;
+}
+
+.noneBookThumb {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 8px;
+  color: #C0C4CC;
+  text-align: center;
+  font-size: 14px;
+}
+
+.bookName {
+  margin-top: 10px;
+  font-size: 16px;
+  color: black;
+  font-weight: 600;
+}
+
+.bookDesc {
+  margin-top: 10px;
+}
+
+/*  */
+.con {
+  width: 702rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 24rpx 37rpx 24rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #4D4D4D;
+}
+
+.left {
+  width: 130rpx;
+  text-align: center;
+  line-height: 33rpx;
+  margin-right: 60rpx;
+  flex-shrink: 0;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.right {
+  flex: 1;
+  font-size: 26rpx;
+  font-weight: 500;
+  line-height: 37rpx;
+  color: #333333;
+  position: relative;
+}
+
+.right::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 2rpx;
+  background: #CDD0D6;
+  border-radius: 4rpx;
+  left: -40rpx;
+  top: 13%;
+}
+
+.circle {
+  position: absolute;
+  width: 29rpx;
+  height: 29rpx;
+  border: 2rpx solid #D4D7DE;
+  border-radius: 50%;
+  top: 9%;
+  left: -54rpx;
+  z-index: 3;
+  background: #fff;
+}
+
+.circle::after {
+  content: '';
+  position: absolute;
+  width: 15rpx;
+  height: 15rpx;
+  background: #CDD0D6;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.r_box {
+  width: 453rpx;
+  background:#F0F2F5;
+  border-radius: 14rpx;
+  box-sizing: border-box;
+  padding: 16rpx 28rpx 23rpx 29rpx;
+  position: relative;
+  margin-bottom: 60rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.r_box::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 13rpx solid transparent;
+  border-bottom: 13rpx solid transparent;
+  border-right: 17rpx solid #F0F2F5;
+  left: -15rpx;
+  top: 15%;
+}
+
+.flex:last-child .right .r_box {
+  margin-bottom: 0;
+}
+
+.flex:last-child .right .r_box {
+  margin-bottom: 0;
+}
+
+.flex:last-child .right::after {
+  display: none;
+}
+
+.reminderRemark {
+  font-size: 14px;
+  color: #4D4D4D;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* 遮罩 */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.block {
+  width: 90%;
+  height: 50%;
+  background-color: #fff;
+}
+
+.textArea{
+  box-sizing: content-box;
+  border-top: 1px solid #D4D7DE;
+  border-bottom: 1px solid #D4D7DE;
+  padding: 10px 0;
+  margin: 20px 10px;
+}
+
+.placeholder {
+  color: #A8ABB2
+}
+
+.remarkButton {
+  border-radius: 20px;
+  top: 85px;
+}

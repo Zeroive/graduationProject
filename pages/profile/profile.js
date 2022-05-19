@@ -14,7 +14,7 @@ App.Page({
     driftBooksInfo: [ //书籍信息
         {
         bookName: "Spring实战-(第4版)1",
-        thumbUrl: "http://image12.bookschina.com/2016/20160531/s7146469.jpg",
+        thumbUrl: "",
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
@@ -29,7 +29,22 @@ App.Page({
     collectionBooksInfo:[
       {
         bookName: "Spring实战-(第4版)1",
-        thumbUrl: "http://api.jisuapi.com/isbn/upload/854/853057.jpg",
+        thumbUrl: "",
+        publisher: "人民邮电出版社",
+        price: "69",
+        page: 498,
+        createTime: "2022-04-11 15:10:26",//图书的创建时间， 即馆藏时间
+        newold: 0,
+        note: 0,
+        charge: 0,
+        driftTime: 0,
+        isthumbUrlWork: false
+      }
+    ],
+    myPickedBooks:[
+      {
+        bookName: "Spring实战-(第4版)1",
+        thumbUrl: "",
         publisher: "人民邮电出版社",
         price: "69",
         page: 498,
@@ -42,7 +57,8 @@ App.Page({
       }
     ],
     show: false, // 弹窗是否展示
-    ManagerorDrift: 0
+    ManagerorDrift: 0,
+    collapseActiveNames: ['1', '2'] //下拉窗口
   },
   // 获取头像
   onChooseAvatar(e) {
@@ -74,6 +90,12 @@ App.Page({
     this.setData({ show: false });
   },
 
+  onCollapseChange(event) {
+    this.setData({
+      collapseActiveNames: event.detail,
+    });
+  },
+
   onClickLeftSlideShow(){
     this.selectComponent("#leftslide").onClickShow()
   },
@@ -94,18 +116,19 @@ App.Page({
         userId: app.store.getState().user.userId
       },
       success:(res)=>{
-        res.data.collectionBooksInfo.map((val) => {
-          wx.request({
-            url: val.thumbUrl,
-            method: 'GET',
-            success: (res) => {
-              if(res.statusCode == 200){
-                val['isthumbUrlWork'] = true
-              }
-            }
-          })
-          return val
-        })
+        // console.log(res);
+        // res.data.collectionBooksInfo.map((val) => {
+        //   wx.request({
+        //     url: val.thumbUrl,
+        //     method: 'GET',
+        //     success: (res) => {
+        //       if(res.statusCode == 200){
+        //         val['isthumbUrlWork'] = true
+        //       }
+        //     }
+        //   })
+        //   return val
+        // })
         this.setData({
           collectionBooksInfo: res.data.collectionBooksInfo
         })
@@ -116,26 +139,44 @@ App.Page({
   getBookDrift(){
     console.log("获取漂流书籍");
     wx.request({
-      url: app.store.getState().settings.baseUrl + "/bookdrift/getbyuserid",
+      url: app.store.getState().settings.baseUrl + "/bookdrift/getbylenderid",
       method: "POST",
       data: {
-        userId: app.store.getState().user.userId
+        lenderId: app.store.getState().user.userId
       },
       success:(res)=>{
-        res.data.driftBooksInfo.map((val) => {
-          wx.request({
-            url: val.thumbUrl,
-            method: 'GET',
-            success: (res) => {
-              if(res.statusCode == 200){
-                val['isthumbUrlWork'] = true
-              }
-            }
-          })
-          return val
-        })
+        // console.log(res);
+        // res.data.driftBooksInfo.map((val) => {
+        //   wx.request({
+        //     url: val.thumbUrl,
+        //     method: 'GET',
+        //     success: (res) => {
+        //       if(res.statusCode == 200){
+        //         val['isthumbUrlWork'] = true
+        //       }
+        //     }
+        //   })
+        //   return val
+        // })
         this.setData({
           driftBooksInfo: res.data.driftBooksInfo
+        })
+      }
+    })
+  },
+
+  getPickedDrift(){
+    console.log("获取捞取书籍");
+    wx.request({
+      url: app.store.getState().settings.baseUrl + "/bookdrift/getbyborrowerid",
+      method: "POST",
+      data: {
+        borrowerId: app.store.getState().user.userId
+      },
+      success:(res)=>{
+        console.log(res);
+        this.setData({
+          myPickedBooks: res.data.pickedBooksInfo
         })
       }
     })
@@ -209,7 +250,7 @@ App.Page({
               driftId: e.target.dataset.data.driftId
             },
             success: (driftRes) => {
-              console.log(driftRes);
+              // console.log(driftRes);
               if(driftRes.statusCode == 200){
                 this.selectComponent("#onemoreDrift").setData({base64img: driftRes.data.base64img})
               }else{
@@ -227,6 +268,43 @@ App.Page({
     })
   },
 
+  goBookDetail(e){
+    // console.log(e.target.dataset.data);
+    const driftId = e.target.dataset.data.driftId?e.target.dataset.data.driftId:""
+    const collectionId = e.target.dataset.data.collectionId?e.target.dataset.data.collectionId:""
+    console.log({driftId, collectionId});
+    // 成功后跳转页面
+    wx.navigateTo({
+      url: '/pages/bookDetail/bookDetail',
+      // 可以从打开的页面触发
+      events: {},
+      success: function(pageres) {
+        // 触发打开的页面的方法
+        pageres.eventChannel.emit('acceptDataFromProfilePage', {driftId, collectionId})
+      }
+    })
+  },
+
+  goRemark(e){
+    const driftId = e.target.dataset.data.driftId
+    const bookId = e.target.dataset.data.bookId
+    console.log({driftId, bookId});
+    // 成功后跳转页面
+    wx.navigateTo({
+      url: '/pages/remark/remark',
+      // 可以从打开的页面触发
+      events: {},
+      success: function(pageres) {
+        // 触发打开的页面的方法
+        pageres.eventChannel.emit('acceptDataFromOpenerPage', {driftId, bookId})
+      }
+    })
+  },
+
+  multipleDrift(e){
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -237,6 +315,7 @@ App.Page({
     })
     this.getBookCollection()
     this.getBookDrift()
+    this.getPickedDrift()
     console.log(this.data);
   },
 

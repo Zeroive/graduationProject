@@ -1,0 +1,60 @@
+<!--pages/remark/remark.wxml-->
+<header backgroundcolor="white">
+    <view slot="content" class="MIcon" style="color: {{fontColor}};">
+      <navigator open-type="navigateBack"><van-icon name="arrow-left" /></navigator>
+    </view>
+    <text slot="content" class="MTitle" style="color: {{fontColor}};">图书笔记</text>
+</header>
+
+<!-- 卡片信息 -->
+<van-card custom-class="remarkCard">
+  <view slot="thumb">
+    <image wx:if="{{isthumbUrlWork}}" src="{{bookInfo.thumbUrl}}" mode="aspectFill center" class="bookThumb"></image>
+    <view wx:else class="noneBookThumb">该书图片在运输过程中丢失啦！</view>
+  </view>
+  <view slot="title">
+    <view class="bookName">{{bookInfo.bookName}}</view>
+  </view>
+  <view slot="desc">
+    <view class="bookDesc">作者：{{bookInfo.author}}</view>
+  </view>
+</van-card>
+
+<view class="con">
+  <!-- 没有评论 -->
+  <view class="reminderRemark" wx:if="{{remarks.length == 0}}">
+    暂未获取到任何笔记！
+  </view>
+  <view class="reminderRemark">
+    快来<text class="reminder" bindtap="addRemark"> 添加 </text>一条友善的笔记叭！
+  </view>
+  <block wx:for="{{remarks}}" wx:key="list">
+    <view class="flex">
+      <view class="left">
+        <view>{{item.date}}</view>
+        <view class="time">{{item.time}}</view>
+      </view>
+      <view class="right">
+        <!-- 小圆点 -->
+        <view class="circle"></view>
+        <view class="r_box">
+          <view class="reminder">{{item.borrowerName}}：</view>
+          <view style="text-indent:24px">{{item.memo}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<van-overlay show="{{ inputRemarkShow }}" bind:click="onClickHide" z-index="999">
+  <view class="wrapper">
+    <view class="block" catch:tap="doNothing" >
+      <view class="textArea">
+        <textarea  type="text" class="weui-input" name="input" placeholder="写下你此时的想法" bindinput="changeAreaTextValue"
+         auto-focus="areaTextFocus" style="height: 8em" placeholder-class="placeholder" />
+      </view>
+      <button loading="{{buttonLoading}}" type="primary" class="remarkButton" bindtap="onSubmitRemark">提交</button>
+    </view>
+  </view>
+</van-overlay>
+

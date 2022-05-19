@@ -63,8 +63,7 @@ App.Page({
               this.onHideLoading()
             }
           })
-        }
-        else if(result.scanType == "EAN_13"){// ISBN码
+        }else if(result.scanType == "EAN_13"){// ISBN码
           // request：根据识别的isbn请求书籍信息
           wx.request({
             url: app.store.getState().settings.baseUrl + '/book/findbook',
@@ -112,6 +111,10 @@ App.Page({
                 icon: 'error'
               })
             }
+          })
+        }else{
+          this.setData({
+            isLoadingShow: false
           })
         }
         

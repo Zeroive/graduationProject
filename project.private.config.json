@@ -7,7 +7,7 @@
       "list": [
         {
           "name": "test",
-          "pathName": "pages/drift/drift",
+          "pathName": "pages/bookDetail/bookDetail",
           "query": "",
           "launchMode": "default",
           "scene": null

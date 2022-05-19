@@ -18,8 +18,9 @@
         <!-- 所属图书馆 -->
         <view class="library"><van-icon name="location" style="margin: 0 5px;" />{{bookInfo.libraryName}}</view>
         <view class="isdrift">
-          <text wx:if="{{bookInfo.state == 0}}">等待转漂</text>
-          <text wx:elif="{{bookInfo.state == 1}}">转漂中...</text>
+          <text wx:if="{{state == 0 && bookInfo.state == 0}}">等待转漂</text>
+          <text wx:elif="{{state == 0 && bookInfo.state == 1}}">转漂中...</text>
+          <text wx:elif="{{state == 1}}">馆藏中</text>
           <text wx:else>丢失状态</text>
         </view>
         <view class="bookDetail">
@@ -39,10 +40,10 @@
         <image src="{{bookInfo.lenderAvatarUrl}}" class="userAvatar"></image>
         <view class="userNameBlock">
           <view class="userName">{{bookInfo.lenderName}}</view>
-          <view class="userDesc">放漂者</view>
+          <view class="userDesc">{{state == 0?'放漂者':'拥有者'}}</view>
         </view>
       </view>
-      <view class="userInfoCard">
+      <view class="userInfoCard" wx:if="{{state == 0}}">
         <image src="{{bookInfo.borrowerAvatarUrl}}" class="userAvatar"></image>
         <view class="userNameBlock">
           <view class="userName">{{bookInfo.borrowerName}}</view>
@@ -53,8 +54,8 @@
   </view>
 
   <view class="confirm">
-    <button class="Mbutton" bindtap="onClickCancel">取消</button>
-    <button type="primary" class="Mbutton" bindtap="onAcceptDrift">确认捞起</button>
+    <button class="Mbutton" bindtap="onClickCancel">返回</button>
+    <button wx:if="{{state != 0 && state != 1}}" type="primary" class="Mbutton" bindtap="onAcceptDrift">确认捞起</button>
   </view>
 </view>
 

@@ -11,7 +11,8 @@
     "pages/map/map",
     "pages/profileManager/profileManager",
     "pages/bookDetail/bookDetail",
-    "pages/recommend/recommend"
+    "pages/recommend/recommend",
+    "pages/remark/remark"
   ],
   "window": {
     "navigationStyle": "custom",

@@ -20,29 +20,55 @@
 
 <view class="profileContainer">
   <van-tabs active="{{ active }}" color="orange" bind:change="onChange">
+
     <!-- 馆藏 -->
     <van-tab title="馆藏">
       <view wx:for="{{collectionBooksInfo}}" wx:key="index" class="driftBookCard">
         <!-- 卡片信息 -->
         <MCard bookInfo="{{item}}" info1="0" info2="在馆" class="MCard">
-          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
-          <view slot="hander1" class="handlerText" bindtap="onFirstDrift" data-data="{{item}}" data-flag="2">放漂</view>
-        </MCard>
-      </view>
-    </van-tab>
-    <!-- 在漂 -->
-    <van-tab title="在漂">
-      <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
-        <!-- 卡片信息 -->
-        <MCard bookInfo="{{item}}" info1="1" info2="" class="MCard">
-          <view slot="hander1" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
-          <view wx:if="{{item.state == 0}}" slot="hander2" class="handlerText" bindtap="onemoreDrift" data-data="{{item}}" data-flag="1">转漂</view>
+          <view slot="hander2" class="handlerText" bindtap="onClickShow" data-data="{{item}}" data-flag="0">管理</view>
+          <view slot="hander3" class="handlerText" bindtap="onFirstDrift" data-data="{{item}}" data-flag="2">放漂</view>
+          <view slot="hander1" class="handlerText" bindtap="goBookDetail" data-data="{{item}}">查看</view>
         </MCard>
       </view>
     </van-tab>
 
-    <!-- 停放 -->
-    <!-- <van-tab title="停放">内容 3</van-tab> -->
+    <!-- 在漂 -->
+    <van-tab title="在漂">
+      <!-- 下拉框 -->
+      <van-collapse value="{{ collapseActiveNames }}" bind:change="onCollapseChange">
+        <!-- 捞到的书籍 -->
+        <van-collapse-item title="我捞到的" name="1">
+          <view wx:if="{{myPickedBooks.length == 0}}">这里空空如也，快去捞一本书叭！</view>
+          
+          <view wx:for="{{myPickedBooks}}" wx:key="index" class="driftBookCard">
+            <!-- 卡片信息 -->
+            <MCard bookInfo="{{item}}" info1="2" info2="" class="MCard">
+              <view slot="hander1" class="handlerText" bindtap="goBookDetail" data-data="{{item}}">查看</view>
+              <view slot="hander2" class="handlerText" bindtap="goRemark" data-data="{{item}}">笔记</view>
+              <view slot="hander3" class="handlerText" bindtap="onemoreDrift" data-data="{{item}}" data-flag="1">转漂</view>
+            </MCard>
+          </view>
+        </van-collapse-item>
+        <!-- 放漂的书籍 -->
+        <van-collapse-item title="我放漂的" name="2">
+          <view wx:if="{{driftBooksInfo.length == 0}}">这里空空如也，快去放漂闲置的书籍叭！</view>
+          
+          <view wx:for="{{driftBooksInfo}}" wx:key="index" class="driftBookCard">
+            <!-- 卡片信息 -->
+            <MCard bookInfo="{{item}}" info1="1" info2="" class="MCard">
+              <view slot="hander1" class="handlerText" bindtap="goBookDetail" data-data="{{item}}">查看</view>
+              <view wx:if="{{item.state == 0}}" slot="hander2" class="handlerText" bindtap="onemoreDrift" data-data="{{item}}" data-flag="1">放漂</view>
+            </MCard>
+          </view>
+        </van-collapse-item>
+      </van-collapse>
+
+      
+    </van-tab>
+ 
+    <!-- 捞到的书籍 -->
+    <!-- <van-tab title="捞到"></van-tab> -->
   </van-tabs>
 </view>
 

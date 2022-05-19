@@ -23,4 +23,11 @@
   font-weight: 600;
   margin-top: 10px;
   text-align: center;
+  /* 多行溢出 */
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
